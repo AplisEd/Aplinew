@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/notifyRL"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp80"
+    android:layout_marginBottom="@dimen/dp2"
+    android:layout_marginTop="@dimen/dp2"
+    android:background="@color/white"
+    android:paddingBottom="@dimen/dp10"
+    android:paddingLeft="@dimen/dp5"
+    android:paddingRight="@dimen/dp10"
+    android:paddingTop="@dimen/dp10">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_forward"
+        android:layout_alignParentRight="true"
+        android:visibility="invisible"
+        android:layout_centerVertical="true"/>
+
+    <RelativeLayout
+        android:id="@+id/imageRL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+        <com.edu.customview.CircleImageView
+            android:id="@+id/imageIV"
+            android:layout_width="@dimen/medium_image_size"
+            android:layout_height="@dimen/medium_image_size"
+            android:layout_gravity="center"
+            android:src="@drawable/placeholder"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/imageIVText"
+            android:layout_width="@dimen/medium_image_size"
+            android:layout_height="@dimen/medium_image_size"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:src="@drawable/placeholder" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/imageRL"
+        android:layout_marginRight="@dimen/dp15">
+
+        <TextView
+            android:id="@+id/descriptionTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:text="asldvnasldkcn ;lkasjd;askjm; lkamsdf;cakm ;asdkmf a;sj "
+            android:paddingLeft="@dimen/dp10"
+            android:textColor="@color/light_black_font"
+            android:textSize="@dimen/small_text_size" />
+
+        <TextView
+            android:id="@+id/timeTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/descriptionTV"
+            android:layout_marginTop="@dimen/dp5"
+            android:layout_alignParentBottom="true"
+            android:paddingLeft="@dimen/dp10"
+            android:textSize="@dimen/extrasmall_text_size_11" />
+    </RelativeLayout>
+</RelativeLayout>

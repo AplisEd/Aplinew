@@ -110,6 +110,4 @@ public class PiechartActivity extends AppCompatActivity {
 ////            pieEntries.set(i,"h");
 //        }
 //    }
-
-
 }

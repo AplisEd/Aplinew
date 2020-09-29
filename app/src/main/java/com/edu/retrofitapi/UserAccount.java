@@ -5,6 +5,14 @@ import com.google.gson.annotations.SerializedName;
 public class UserAccount {
     @SerializedName("status")
     private String status;
+    @SerializedName("message")
+    private String message;
+    private User user;
+
+    public UserAccount(String status) {
+        this.status = status;
+
+    }
 
     public String getMessage() {
         return message;
@@ -12,14 +20,6 @@ public class UserAccount {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    @SerializedName("message")
-    private String message;
-    private User user;
-    public UserAccount(String status) {
-        this.status = status;
-
     }
 
     public String getStatus() {

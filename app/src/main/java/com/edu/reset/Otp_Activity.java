@@ -70,10 +70,8 @@ public class Otp_Activity extends AppCompatActivity implements
         ed_npswd = findViewById(R.id.ed_npswd);
         ed_cpswd = findViewById(R.id.ed_cpswd);
         verify = findViewById(R.id.text_reset);
-        cancel_image = findViewById(R.id.cancel_image);
 
         callanalytics();
-        cancel_image.setOnClickListener(this);
         verify.setOnClickListener(this);
 
 //        makeOTPcall(otp);
@@ -109,7 +107,7 @@ public class Otp_Activity extends AppCompatActivity implements
 
     @Override
     public void otp(String otp, String password) {
-        Api api = RetrofitClient.getClient(context,Api.BASE_URL).create(Api.class);
+        Api api = RetrofitClient.getClient(context).create(Api.class);
 
         Call<EmailResponse> call = api.getResetPswd(PrefrenceUtils.readString(context,PrefrenceUtils.PREF_EMAIL,""),otp,password);
 

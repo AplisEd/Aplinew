@@ -14,40 +14,43 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.edu.aplis.DemoApplication;
 import com.edu.aplis.R;
 import com.edu.webservice.Cons;
+
 import java.util.HashMap;
 
-public class TermsConditions extends AppCompatActivity  {
+public class TermsConditions extends AppCompatActivity {
     String data = "";
     WebView view;
-    String web_id="";
+    String web_id = "";
     Context context;
-    HashMap<String,String> hashMap=new HashMap<>();
+    HashMap<String, String> hashMap = new HashMap<>();
     private ProgressDialog prg;
 
     String bg_image = "";
-//    ImageView layout_bg;
+    //    ImageView layout_bg;
     ZoomLinearLayout zoomLinearLayout;
     RelativeLayout layout_back;
 
-    private  int counter=0;
+    private int counter = 0;
+
     @Override
-    public void onCreate( Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.termsconditions);
 
-        view  =findViewById(R.id.webView);
+        view = findViewById(R.id.webView);
         context = TermsConditions.this;
 //        layout_bg = findViewById(R.id.layout_bg);
 
 //        data = "<h4><font face=\"Times New Roman\">i am here</font></h4><p><img src=\"http://35.173.187.82/aplis/public/storage/images/aplis-images-2019-12-30%2023:59:35-5e0a420f14dcd.jpeg\"><font face=\"Times New Roman\"><br></font></p><p><u><i style=\"background-color: rgb(255, 0, 128);\"><font color=\"#ffffff\">can you see image</font></i></u></p>";
 
-         zoomLinearLayout = (ZoomLinearLayout) findViewById(R.id.zoom_linear_layout);
-        layout_back =  findViewById(R.id.layout_back);
+        zoomLinearLayout = (ZoomLinearLayout) findViewById(R.id.zoom_linear_layout);
+        layout_back = findViewById(R.id.layout_back);
 
         callanalytics();
         zoomLinearLayout.setOnTouchListener(new View.OnTouchListener() {
@@ -59,15 +62,15 @@ public class TermsConditions extends AppCompatActivity  {
         });
 //"http://docs.google.com/gview?embedded=true&url="
         setwebdata(Cons.TERMSANDCONDITIONS);
-   }
+    }
 
 
-    private void setwebdata(String url){
+    private void setwebdata(String url) {
         loadwebdata(url);
 
     }
 
-    private void loadwebdata(final String url){
+    private void loadwebdata(final String url) {
 
         view.getSettings().setJavaScriptEnabled(true);
         view.getSettings().setAppCacheEnabled(true);
@@ -80,31 +83,13 @@ public class TermsConditions extends AppCompatActivity  {
 //        webView.setWebViewClient(new MyWebViewClient());
 
 
-        Log.e("clickver","one"+url);
-
-
+        Log.e("clickver", "one" + url);
     }
-
-
-    public void getWebview(String myurl)
-    {
-
-
-
-
-
-        view.setWebViewClient(new WebViewClient()
-        {
-
-
+    public void getWebview(String myurl) {
+        view.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-
-
                 prg.show();
-
-
-
                 return super.shouldOverrideUrlLoading(view, url);
             }
 
@@ -122,7 +107,6 @@ public class TermsConditions extends AppCompatActivity  {
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
 
 
-
                 super.onPageStarted(view, url, favicon);
             }
 
@@ -130,41 +114,35 @@ public class TermsConditions extends AppCompatActivity  {
             @Override
             public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                 super.onReceivedError(view, request, error);
-                Log.e("clickver","one"+error.getDescription()+ " "+error.getErrorCode());
+                Log.e("clickver", "one" + error.getDescription() + " " + error.getErrorCode());
 
             }
         });
         prg = ProgressDialog.show(TermsConditions.this, "Please wait", "Processing...", true);
         prg.setCancelable(true);
         view.loadUrl(myurl);
-
-
-
     }
-
 
 
     @Override
     protected void onResume() {
         super.onResume();
-
-
     }
-
 
 
     public void onback(View view) {
         finish();
     }
+
     @Override
     protected void onRestart() {
         super.onRestart();
     }
+
     private void callanalytics() {
         DemoApplication application = (DemoApplication) getApplication();
         application.trackScreenView(getClass().getSimpleName());
     }
-
 
 
 }

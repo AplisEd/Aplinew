@@ -21,7 +21,7 @@
             android:layout_height="@dimen/dp24"
             android:layout_gravity="center"
             android:onClick="imageback"
-            android:tint="@color/textColblack"></ImageView>
+            android:tint="@color/textColblack"/>
 
         <TextView
             android:id="@+id/text_search"

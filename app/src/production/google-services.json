@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "99457633384",
+    "firebase_url": "https://aplis-92c4b.firebaseio.com",
+    "project_id": "aplis-92c4b",
+    "storage_bucket": "aplis-92c4b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:99457633384:android:e8f4eebe46073158cd7fdd",
+        "android_client_info": {
+          "package_name": "com.edu.aplis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "99457633384-euhgpv29v8slsletnm6f69f5av6fuflh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQZa6lTyl5RBV-MrjCxF71EFOAry7G1Cs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "99457633384-euhgpv29v8slsletnm6f69f5av6fuflh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

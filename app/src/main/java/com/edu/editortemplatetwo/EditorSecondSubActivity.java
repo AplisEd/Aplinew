@@ -55,6 +55,7 @@ import com.edu.webservice.ResponceQueues;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.gson.JsonObject;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout;
@@ -127,9 +128,6 @@ public class EditorSecondSubActivity extends AppCompatActivity implements Respon
         cardimage_Ar = findViewById(R.id.cardimage_Ar);
         cardimage_visualaize = findViewById(R.id.cardimage_visualaize);
         image_visualaize = findViewById(R.id.image_visualaize);
-
-
-
         text_title = findViewById(R.id.text_title);
         text_subtitle = findViewById(R.id.text_subtitle);
         text_description = findViewById(R.id.text_subdetail);
@@ -217,7 +215,7 @@ public class EditorSecondSubActivity extends AppCompatActivity implements Respon
 
                     image_visualaize.setImageResource(R.drawable.visuliaze);
                     viewpagertopiclayer.setVisibility(View.VISIBLE);
-                    root.setBackgroundColor(getResources().getColor(R.color.textCol));
+//                    root.setBackgroundColor(getResources().getColor(R.color.textCol));
 
 
                 }
@@ -229,7 +227,7 @@ public class EditorSecondSubActivity extends AppCompatActivity implements Respon
                     TransitionManager.beginDelayedTransition(viewpagertopiclayer, transition);
                     image_visualaize.setImageResource(R.drawable.un_eye);
                     viewpagertopiclayer.setVisibility(View.GONE);
-                    root.setBackgroundColor(getResources().getColor(R.color.white));
+//                    root.setBackgroundColor(getResources().getColor(R.color.white));
 
 
                 }
@@ -308,13 +306,17 @@ public class EditorSecondSubActivity extends AppCompatActivity implements Respon
         });
 
         getDataFromServer();
+
     }
 
     private void getDataFromServer() {
         shimmerFrameLayout.setVisibility(View.VISIBLE);
         shimmerFrameLayout.startShimmerAnimation();
-        Api api = RetrofitClient.getClient(context, Api.BASE_URL).create(Api.class);
 
+
+        Api api = RetrofitClient.getClient(context).create(Api.class);
+
+       // Call<SecondRetrofitModel> call = api.getSUBCHAPTERBYCHAPTERID(title_id);
         Call<SecondRetrofitModel> call = api.getSUBCHAPTERBYCHAPTERID(Cons.GET_SUBCHAPTERBYCHAPTERID+title_id);
 //        Log.e("discovertry",call.u);
         call.enqueue(new Callback<SecondRetrofitModel>() {
@@ -423,9 +425,6 @@ public class EditorSecondSubActivity extends AppCompatActivity implements Respon
         rec_view.setAdapter(editorSecondSubActivityAdapter);
     }
 
-
-
-
     @Override
     public void responceQue(String responce, String url, String extra_text) {
         editorModelArrayList.clear();
@@ -463,20 +462,14 @@ public class EditorSecondSubActivity extends AppCompatActivity implements Respon
                 }
                 else if (is_graphp.equalsIgnoreCase("1")){
                     mime_type = "graph";
-
                 }
 
                 else if (is_pichart.equalsIgnoreCase("1")){
                     mime_type = "pie_chart";
-
-
                 }else if (is_column.equalsIgnoreCase("1")){
                     mime_type = "column";
-
-
                 }else if (is_website.equalsIgnoreCase("1")){
                     mime_type = "web";
-
 
                 }
                 else{
@@ -514,7 +507,6 @@ public class EditorSecondSubActivity extends AppCompatActivity implements Respon
             Log.e("JSONEXCEPTION",e+"");
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -662,7 +654,7 @@ public class EditorSecondSubActivity extends AppCompatActivity implements Respon
     @Override
     protected void onRestart() {
         super.onRestart();
-        fabMenu.setVisibility(View.VISIBLE);
+//        fabMenu.setVisibility(View.VISIBLE);
         rec_view.setVisibility(View.VISIBLE);
     }
 
@@ -670,4 +662,6 @@ public class EditorSecondSubActivity extends AppCompatActivity implements Respon
         DemoApplication application = (DemoApplication) getApplication();
         application.trackScreenView(getClass().getSimpleName());
     }
+
+
 }

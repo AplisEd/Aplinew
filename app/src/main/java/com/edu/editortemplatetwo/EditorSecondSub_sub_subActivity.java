@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -88,6 +87,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import at.blogc.android.views.ExpandableTextView;
 import retrofit2.Call;
@@ -121,7 +121,7 @@ public class EditorSecondSub_sub_subActivity extends AppCompatActivity implement
     private int prevPos = -1;
 
     LinearLayout viewpagertopiclayer;
-    FrameLayout root;
+    LinearLayout linear_layer;
     CardView cardimage_Ar;
     CardView cardimage_visualaize;
     ImageView image_visualaize;
@@ -150,7 +150,7 @@ public class EditorSecondSub_sub_subActivity extends AppCompatActivity implement
 
 
         viewpagertopiclayer = findViewById(R.id.viewpagertopiclayer);
-        root = findViewById(R.id.frame_layout);
+//        linear_layer = findViewById(R.id.linear_layer);
         cardimage_Ar = findViewById(R.id.cardimage_Ar);
         cardimage_visualaize = findViewById(R.id.cardimage_visualaize);
         image_visualaize = findViewById(R.id.image_visualaize);
@@ -256,8 +256,7 @@ public class EditorSecondSub_sub_subActivity extends AppCompatActivity implement
 
                     image_visualaize.setImageResource(R.drawable.visuliaze);
                     viewpagertopiclayer.setVisibility(View.VISIBLE);
-                    root.setVisibility(View.VISIBLE);
-
+//                    linear_layer.setVisibility(View.VISIBLE);
 
                 }
                 else{
@@ -268,8 +267,7 @@ public class EditorSecondSub_sub_subActivity extends AppCompatActivity implement
                     TransitionManager.beginDelayedTransition(viewpagertopiclayer, transition);
                     image_visualaize.setImageResource(R.drawable.un_eye);
                     viewpagertopiclayer.setVisibility(View.GONE);
-                    root.setVisibility(View.GONE);
-
+//                    linear_layer.setVisibility(View.GONE);
 
                 }
             }
@@ -409,7 +407,7 @@ public class EditorSecondSub_sub_subActivity extends AppCompatActivity implement
 //        makeHTTPCall(Cons.GET_SUBCHAPTERYBDETAILCHAPTERID+ sub_id);
 
 
-//        getDataFromServer();
+       // getDataFromServer();
         makeHTTPCall(Cons.GET_SUBSUBCHAPTERYBDETAILCHAPTERID+ sub_id);
 
     }
@@ -437,7 +435,7 @@ public class EditorSecondSub_sub_subActivity extends AppCompatActivity implement
 
     private void makeHTTPCall(final String url) {
 
-        Api api = RetrofitClient.getClient(context, Api.BASE_URL).create(Api.class);
+        Api api = RetrofitClient.getClient(context).create(Api.class);
 
         Call<Editorsub_sub_subFirstDetailsRetrofitModel> call = api.getEditorSecondSub_sub_subActivity(url);
 //        Log.e("discovertry",call.u);
@@ -687,10 +685,6 @@ public class EditorSecondSub_sub_subActivity extends AppCompatActivity implement
 
         Log.e("POS",position+"");
     }
-
-
-
-
     @Override
     public void onStart() {
         super.onStart();
@@ -704,18 +698,24 @@ public class EditorSecondSub_sub_subActivity extends AppCompatActivity implement
 
 //            FadeOutTransformation fadeOutTransformation = new FadeOutTransformation();
 //            pager.setPageTransformer(true, fadeOutTransformation);
-
-
 //            FadeOutTransformation fadeOutTransformation = new FadeOutTransformation();
 //            pager.setPageTransformer(true, fadeOutTransformation);
 
 
-            recyclerViewvpager.setAdapter(adapter);
-            recyclerViewvpager.setPageTransformer(true, fadeOutTransformation);
-            pageIndicatorView.setVisibility(View.VISIBLE);
-            pageIndicatorView.setViewPager(recyclerViewvpager, recyclerViewvpager.getAdapter().getCount() - 1);
-            pageIndicatorView.setStepCount(discoverModelArrayList.size());
-            pageIndicatorView.setCurrentStep(0);
+
+            try {
+                recyclerViewvpager.setAdapter(adapter);
+                recyclerViewvpager.setPageTransformer(true, fadeOutTransformation);
+                pageIndicatorView.setVisibility(View.VISIBLE);
+                pageIndicatorView.setViewPager(recyclerViewvpager, Objects.requireNonNull(recyclerViewvpager.getAdapter()).getCount() - 1);
+                pageIndicatorView.setStepCount(discoverModelArrayList.size());
+                pageIndicatorView.setCurrentStep(0);
+            }
+            catch (Exception e){
+                Log.e("Exception",e.toString());
+            }
+
+
 //            FadeOutTransformation fadeOutTransformation = new FadeOutTransformation();
 //            PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
 
@@ -867,17 +867,12 @@ public class EditorSecondSub_sub_subActivity extends AppCompatActivity implement
             if (discoverModelArrayList.get(currentPos).getMime_type().equalsIgnoreCase("video")) {
                 mnextFragment.closeexoplayer();
 //                mnextFragment.initializePlayer();
-
-
             }
         }
         catch (Exception e){
 
         }
     }
-
-
-
 
     class CacheDataSourceFactory implements DataSource.Factory {
         private final Context context;
@@ -902,11 +897,7 @@ public class EditorSecondSub_sub_subActivity extends AppCompatActivity implement
             File file = new File(context.getCacheDir(), "media"+System.currentTimeMillis());
 //            File file = new File(context.getCacheDir(), "media"+System.currentTimeMillis());
 
-
-
             simpleCache = new SimpleCache(file, evictor);
-//
-
             return new CacheDataSource(simpleCache, defaultDatasourceFactory.createDataSource(),
                     new FileDataSource(), new CacheDataSink(simpleCache, maxFileSize),
                     CacheDataSource.FLAG_BLOCK_ON_CACHE | CacheDataSource.FLAG_IGNORE_CACHE_ON_ERROR, null);
@@ -939,9 +930,6 @@ public class EditorSecondSub_sub_subActivity extends AppCompatActivity implement
                 finish();
             }
         }
-
-
-
     }
     @Override
     protected void onRestart() {

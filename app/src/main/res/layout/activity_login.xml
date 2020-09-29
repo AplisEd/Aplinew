@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/nestedScrollView"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/nestedScrollView">
-
+    android:orientation="vertical">
 
 
     <FrameLayout
@@ -17,57 +17,59 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="4"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:weightSum="4">
+
         <ImageView
             android:id="@+id/img_page"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:scaleType="fitXY"
-            android:adjustViewBounds="true"
             android:layout_weight="3"
-            android:src="@drawable/signinpage"
-            />
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/signinpage" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:weightSum="2"
-            android:layout_weight="1"
-            android:padding="@dimen/dp10"
-            android:orientation="vertical"
             android:layout_gravity="top"
+            android:layout_weight="1"
+            android:background="@drawable/buttonlinear"
             android:gravity="top"
-            android:background="@drawable/buttonlinear">
+            android:orientation="vertical"
+            android:padding="@dimen/dp10"
+            android:weightSum="2">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2"
                 android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/text"
-                    android:textColor="@color/textColblack"
-                    android:textSize="@dimen/dp20"
-                    android:fontFamily="@font/proximanovabold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:text="Aplis Account"/>
+                    android:fontFamily="@font/proximanovabold"
+                    android:text="Aplis Account"
+                    android:textColor="@color/textColblack"
+                    android:textSize="@dimen/dp20" />
+
                 <Button
                     android:id="@+id/button_singin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SIGN IN"
-                    android:textSize="@dimen/dp14"
-                    android:onClick="textsignin"
-                    android:gravity="center"
-                    android:textAllCaps="false"
-                    android:padding="@dimen/dp10"
                     android:layout_margin="@dimen/dp8"
-                    android:fontFamily="@font/proximanovabold"
                     android:background="@drawable/loginshape"
+                    android:fontFamily="@font/proximanovabold"
+                    android:gravity="center"
+                    android:onClick="textsignin"
+                    android:padding="@dimen/dp10"
+                    android:text="SIGN IN"
+                    android:textAllCaps="false"
                     android:textColor="@color/white"
+                    android:textSize="@dimen/dp14"
 
                     />
 
@@ -75,54 +77,57 @@
                     android:id="@+id/text_signup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/signuptext"
-                    android:onClick="textsignup"></TextView>
+                    android:onClick="textsignup"
+                    android:text="@string/signuptext" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:orientation="horizontal"
                 android:layout_gravity="bottom"
-                android:gravity="bottom"
-android:visibility="gone"
                 android:layout_weight=".5"
-                >
+                android:gravity="bottom"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:id="@+id/button_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/dp10"
-                        android:layout_marginLeft="@dimen/dp8"
-                        android:layout_marginRight="@dimen/dp8"
-                        android:layout_marginTop="@dimen/dp8"
                         android:layout_alignParentRight="true"
+                        android:layout_marginLeft="@dimen/dp8"
+                        android:layout_marginTop="@dimen/dp8"
+                        android:layout_marginRight="@dimen/dp8"
                         android:gravity="bottom|right"
+                        android:padding="@dimen/dp10"
                         android:text="Skip"
+                        android:textColor="@color/textCol"
                         android:textSize="@dimen/dp20"
                         android:visibility="visible"
-                        android:textColor="@color/textCol"
 
                         />
+
                     <Button
                         android:id="@+id/button_started"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
 
-                        android:text="Get Started"
-                        android:textSize="@dimen/dp14"
+                        android:layout_margin="@dimen/dp8"
+                        android:background="@drawable/buttonshape"
 
                         android:gravity="center"
-                        android:textAllCaps="false"
                         android:padding="@dimen/dp10"
-                        android:layout_margin="@dimen/dp8"
-                        android:visibility="gone"
-                        android:background="@drawable/buttonshape"
+                        android:text="Get Started"
+                        android:textAllCaps="false"
                         android:textColor="@color/white"
+                        android:textSize="@dimen/dp14"
+                        android:visibility="gone"
 
                         />
 

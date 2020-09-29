@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -9,12 +10,42 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+        flavorDimensions "default"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+           // proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            shrinkResources false
+           // proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),'proguard-rules.pro'
+        }
+    }
+
+
+    productFlavors {
+        dev {
+            applicationId "com.edu.aplisdev"
+            resValue "string", "app_name", "Aplis Dev"
+            buildConfigField("String","BASE_URL","\"http://aplis.in/api/\"")
+        }
+        staging {
+            applicationId "com.edu.aplis.staging"
+            resValue "string", "app_name", "Aplis Staging"
+            buildConfigField("String","BASE_URL","\"http://aplis.in/staging/api/\"")
+        }
+        production {
+            applicationId "com.edu.aplis"
+            resValue "string", "app_name", "Aplis"
+            buildConfigField("String","BASE_URL","\"http://aplis.in/api/\"")
         }
     }
 
@@ -47,16 +78,23 @@ dependencies {
     implementation 'com.github.badoualy:stepper-indicator:1.0.7'
     implementation 'com.andkulikov:transitionseverywhere:1.8.1'
     implementation 'com.github.wangjiegulu:rfab:2.0.0'
-    implementation 'com.google.firebase:firebase-appindexing:11.2.2'
+    implementation 'com.google.firebase:firebase-appindexing:19.1.0'
     implementation 'com.weiwangcn.betterspinner:library-material:1.1.0'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
     implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
-    implementation 'com.google.android.gms:play-services-analytics:11.2.2'
+    implementation 'com.google.android.gms:play-services-analytics:17.0.0'
+    implementation 'com.google.firebase:firebase-messaging:20.2.4'
+    implementation 'com.google.firebase:firebase-analytics:17.5.0'
+    implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.0'
+   // implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
     //    implementation project(path: ':library')
     //    implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
 
 }
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 

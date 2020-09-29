@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:paddingLeft="@dimen/dp10"
-    android:paddingRight="@dimen/dp10"
-    android:paddingTop="@dimen/dp10">
+    android:paddingRight="@dimen/dp10">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tittle"
-                android:textSize="@dimen/dp21"
+                android:textSize="@dimen/sp18"
                 tools:text="Android CardView"
                 android:layout_marginLeft="@dimen/dp10"
                 android:layout_marginRight="@dimen/dp10"
@@ -50,29 +50,26 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:fontFamily="@font/playfairdisplaybold"
-                android:textColor="@color/textColblack"
-               />
+                android:textColor="@color/textColblack"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/text_body"
                 tools:text="@string/body"
-                android:textSize="@dimen/dp14"
+                android:textSize="@dimen/sp14"
                 android:layout_marginLeft="@dimen/dp10"
                 android:layout_marginRight="@dimen/dp10"
                 android:visibility="visible"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:textColor="@color/textColblack"
-                android:fontFamily="@font/playfairdisplayregular"
-                />
+                android:fontFamily="@font/playfairdisplayregular" />
 
         </LinearLayout>
 
 
     </RelativeLayout>
     </androidx.cardview.widget.CardView>
-
 
 </RelativeLayout>

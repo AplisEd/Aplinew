@@ -16,23 +16,22 @@ public class BarThirdRetrofitModel {
     }
 
 
-
     @SerializedName("id")
     private String id;
 
     @SerializedName("heading")
     private String heading;
 
- @SerializedName("sub_heading")
+    @SerializedName("sub_heading")
     private String sub_heading;
- @SerializedName("url")
+    @SerializedName("url")
     private String url;
- @SerializedName("description")
+    @SerializedName("description")
     private String description;
- @SerializedName("numaric_value")
+    @SerializedName("numaric_value")
     private String numaric_value;
 
- @SerializedName("color_code")
+    @SerializedName("color_code")
     private String color_code;
 
     public String getHeading() {
@@ -93,12 +92,6 @@ public class BarThirdRetrofitModel {
 
     @SerializedName("ar_url")
     private String ar_url;
-
-
-
-
-
-
 
 
 }

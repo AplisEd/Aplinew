@@ -98,7 +98,7 @@ public class Verify_Activity extends AppCompatActivity implements
     @Override
     public void verifyotp(String otp, String password) {
 
-        Api api = RetrofitClient.getClient(context,Api.BASE_URL).create(Api.class);
+        Api api = RetrofitClient.getClient(context).create(Api.class);
 
         Call<EmailResponse> call = api.doverifyemail(PrefrenceUtils.readString(context,PrefrenceUtils.PREF_EMAIL,""),otp);
 

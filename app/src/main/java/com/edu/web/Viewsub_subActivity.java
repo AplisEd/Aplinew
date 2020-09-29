@@ -75,7 +75,7 @@ public class Viewsub_subActivity extends AppCompatActivity implements ResponceQu
 
 
         web_id = getIntent().getStringExtra("sub_sub_id_s");
-        Api api = RetrofitClient.getClient(context, Api.BASE_URL).create(Api.class);
+        Api api = RetrofitClient.getClient(context).create(Api.class);
 
         Call<ViewActivityFirstRetrofitModel> call = api.getGET_SUBCHAPTERYBDETAILCHAPTERID(Cons.GET_SUBSUBCHAPTERYBDETAILCHAPTERID + web_id);
 //        Log.e("discovertry",call.u);

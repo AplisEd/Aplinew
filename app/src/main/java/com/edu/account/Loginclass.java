@@ -20,20 +20,23 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.edu.aplis.R;
 import com.edu.dashboard.DashboardMainActivity;
 import com.edu.webservice.ApiService;
 import com.edu.webservice.Cons;
 import com.edu.webservice.ResponceQueues;
+
 import java.util.HashMap;
 
-public class Loginclass extends AppCompatActivity  {
+public class Loginclass extends AppCompatActivity {
     Button button_singin;
     TextView text_signup;
     Context context;
-//    private User user;
+    //    private User user;
     LinearLayout nestedScrollView;
 
     @Override
@@ -47,7 +50,7 @@ public class Loginclass extends AppCompatActivity  {
         setContentView(R.layout.activity_login);
         context = Loginclass.this;
 
-        nestedScrollView= findViewById(R.id.nestedScrollView);
+        nestedScrollView = findViewById(R.id.nestedScrollView);
 //        Util.onActivityCreateSetTheme(this, PrefrenceUtils.readInteger(this, PrefrenceUtils.PREF_THEME, 0));
 
         button_singin = findViewById(R.id.button_singin);
@@ -59,49 +62,51 @@ public class Loginclass extends AppCompatActivity  {
     }
 
 
-    public void setAnimation(){
+    public void setAnimation() {
         ActivityOptions.makeSceneTransitionAnimation(this);
     }
-    private void openAR(){
+
+    private void openAR() {
         Intent sceneViewerIntent = new Intent(Intent.ACTION_VIEW);
         sceneViewerIntent.setData(Uri.parse("https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Avocado/glTF/Avocado.gltf"));
         sceneViewerIntent.setPackage("com.google.android.googlequicksearchbox");
         startActivity(sceneViewerIntent);
     }
 
-    private void openLoginPopup(){
-            final Dialog dialog = new Dialog(new ContextThemeWrapper(this, R.style.DialogAnimation));
+    private void openLoginPopup() {
+        final Dialog dialog = new Dialog(new ContextThemeWrapper(this, R.style.DialogAnimation));
 
-            //tell the Dialog to use the dialog.xml as it's layout description
-            dialog.setContentView(R.layout.sign_inform);
-            dialog.setTitle("LOGIN FORM");
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        //tell the Dialog to use the dialog.xml as it's layout description
+        dialog.setContentView(R.layout.sign_inform);
+        dialog.setTitle("LOGIN FORM");
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 //            getWindow().setGravity(Gravity.BOTTOM);
 //       TextView txt = (TextView) dialog.findViewById(R.id.txt);
 //
 //       txt.setText("This is an Android custom Dialog Box Example! Enjoy!");
 //
-            final EditText login_id = dialog.findViewById(R.id.login_id);
-            final EditText password = dialog.findViewById(R.id.password);
-            TextView dialogsigninButton =  dialog.findViewById(R.id.login_btn);
+        final EditText login_id = dialog.findViewById(R.id.login_id);
+        final EditText password = dialog.findViewById(R.id.password);
+        TextView dialogsigninButton = dialog.findViewById(R.id.login_btn);
 
 //            Button dialogsignupButton = (Button) dialog.findViewById(R.id.btn_Signup);
 
-            dialogsigninButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-if (!validateEmail(login_id)){
-    return;
-}if (!validatePswd(password)){
-    return;
-}
-
-
-                    //                startActivity(new Intent(Loginclass.this, DashboardMainActivity.class));
-//                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                    dialog.dismiss();
+        dialogsigninButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!validateEmail(login_id)) {
+                    return;
                 }
-            });
+                if (!validatePswd(password)) {
+                    return;
+                }
+
+
+                //                startActivity(new Intent(Loginclass.this, DashboardMainActivity.class));
+//                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                dialog.dismiss();
+            }
+        });
 
 //            dialogsignupButton.setOnClickListener(new View.OnClickListener() {
 //                @Override
@@ -111,17 +116,13 @@ if (!validateEmail(login_id)){
 //                }
 //            });
 
-            dialog.show();
+        dialog.show();
 
-        }
-
-
-
-
+    }
 
 
     public void textsignup(View view) {
-       startActivity(new Intent(context,Signupclass.class));
+        startActivity(new Intent(context, Signupclass.class));
     }
 
     private boolean validatePswd(TextView pswd) {
@@ -131,6 +132,7 @@ if (!validateEmail(login_id)){
         }
         return true;
     }
+
     private boolean validateEmail(TextView email) {
         if (email.getText().toString().trim().isEmpty()) {
             requestFocus(email);
@@ -138,6 +140,7 @@ if (!validateEmail(login_id)){
         }
         return true;
     }
+
     private boolean validateCpswd(TextView edit_confrirmpswd) {
         if (edit_confrirmpswd.getText().toString().trim().isEmpty()) {
             requestFocus(edit_confrirmpswd);
@@ -161,6 +164,7 @@ if (!validateEmail(login_id)){
         }
         return true;
     }
+
     private boolean validateAge(TextView age) {
         if (age.getText().toString().trim().isEmpty()) {
             requestFocus(age);

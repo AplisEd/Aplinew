@@ -161,7 +161,7 @@ public class ViewActivity extends AppCompatActivity implements ResponceQueues {
 
 
         web_id = getIntent().getStringExtra("sub_sub_id_s");
-        Api api = RetrofitClient.getClient(context, Api.BASE_URL).create(Api.class);
+        Api api = RetrofitClient.getClient(context).create(Api.class);
 
         Call<ViewActivityFirstRetrofitModel> call = api.getGET_SUBCHAPTERYBDETAILCHAPTERID(Cons.GET_SUBCHAPTERYBDETAILCHAPTERID + web_id);
 //        Log.e("discovertry",call.u);

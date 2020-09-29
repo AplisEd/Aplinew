@@ -6,7 +6,8 @@ import java.util.List;
 
 public class BarFourthColumn_valuesRetrofitModel {
 
-
+    @SerializedName("value")
+    private String value;
 
     @SerializedName("id")
     private String id;
@@ -26,14 +27,4 @@ public class BarFourthColumn_valuesRetrofitModel {
     public void setValue(String value) {
         this.value = value;
     }
-
-    @SerializedName("value")
-    private String value;
-
-
-
-
-
-
-
 }

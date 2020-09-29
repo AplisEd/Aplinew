@@ -334,7 +334,7 @@ public class BarchartActivitynew extends AppCompatActivity implements ResponceQu
     private void getDataFromServer(String url) {
         barchart_id = getIntent().getStringExtra("sub_sub_id_s");
 
-        Api api = RetrofitClient.getClient(context, Api.BASE_URL).create(Api.class);
+        Api api = RetrofitClient.getClient(context).create(Api.class);
 
         Call<BarFirstRetrofitModel> call = api.getGETBarChhart(url+ barchart_id);
 //        Log.e("discovertry",call.u);

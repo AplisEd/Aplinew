@@ -17,6 +17,4 @@ public class BarFirstRetrofitModel {
     @SerializedName("data")
     private BarSecondRetrofitModel barSecondRetrofitModel;
 
-
-
 }

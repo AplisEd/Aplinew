@@ -194,7 +194,7 @@ public class EditorSecondActivity extends AppCompatActivity implements ResponceQ
 
 
 
-        Log.e("TAGEDITOR",book_Id);
+//        Log.e("TAGEDITOR",book_Id);
         getDataFromServer();
 
 //        recyclerView.addOnScrollListener(new VerticalPager.OnScrollListener() {
@@ -242,7 +242,7 @@ public class EditorSecondActivity extends AppCompatActivity implements ResponceQ
 
     private void getDataFromServer() {
 
-        Api api = RetrofitClient.getClient(context, Api.BASE_URL).create(Api.class);
+        Api api = RetrofitClient.getClient(context).create(Api.class);
 
         Call<EditorFirstRetrofitModel> call = api.getChapterByBookId(Cons.GET_CHAPTERBYBOOKID+book_Id);
 //        Log.e("discovertry",call.u);

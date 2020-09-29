@@ -11,6 +11,12 @@ public class BarSecondRetrofitModel {
     private String heading;
     @SerializedName("sub_heading")
     private String sub_heading;
+    @SerializedName("column_categories")
+    private List<BarFourthColumn_categoryRetrofitModel> barFourthColumn_categoryRetrofitModels;
+    @SerializedName("html_content")
+    private String html_content;
+    @SerializedName("columns")
+    private List<BarThirdRetrofitModel> barThirdRetrofitModels;
 
     public String getHeading() {
         return heading;
@@ -36,10 +42,6 @@ public class BarSecondRetrofitModel {
         this.html_content = html_content;
     }
 
-    @SerializedName("html_content")
-    private String html_content;
-
-
     public List<BarThirdRetrofitModel> getBarThirdRetrofitModels() {
         return barThirdRetrofitModels;
     }
@@ -48,21 +50,10 @@ public class BarSecondRetrofitModel {
         this.barThirdRetrofitModels = barThirdRetrofitModels;
     }
 
-    @SerializedName("columns")
-    private List<BarThirdRetrofitModel> barThirdRetrofitModels;
-
-
     public List<BarFourthColumn_categoryRetrofitModel> getBarFourthColumn_categoryRetrofitModels() {
         return barFourthColumn_categoryRetrofitModels;
     }
-
     public void setBarFourthColumn_categoryRetrofitModels(List<BarFourthColumn_categoryRetrofitModel> barFourthColumn_categoryRetrofitModels) {
         this.barFourthColumn_categoryRetrofitModels = barFourthColumn_categoryRetrofitModels;
     }
-
-    @SerializedName("column_categories")
-    private List<BarFourthColumn_categoryRetrofitModel> barFourthColumn_categoryRetrofitModels;
-
-
-
 }

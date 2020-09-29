@@ -7,6 +7,7 @@ import android.content.pm.ResolveInfo;
 import android.media.MediaRouter;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -27,6 +28,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.Utils.Const;
 import com.edu.account.Loginclass;
 import com.edu.account.Profile;
 import com.edu.aplis.DemoApplication;
@@ -34,6 +36,7 @@ import com.edu.aplis.MainActivity;
 import com.edu.aplis.R;
 import com.edu.dashboard.MainFragment;
 import com.edu.fav.Fav_Booklists;
+import com.edu.notification.NotificationFragment;
 import com.edu.preference.PrefrenceUtils;
 import com.edu.search.SearchResultActivity;
 import com.edu.web.PrivacyPolicy;
@@ -51,20 +54,20 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     private ImageView allsong, albums, fav;
     DrawerLayout drawer_layout;
-    Boolean isVisibleFragment=false;
-    Boolean mSlideState=false;
+    Boolean isVisibleFragment = false;
+    Boolean mSlideState = false;
     ImageView imageview_slider;
     TextView text_darkmode;
     ImageView imageview_back;
     ImageView imageView_search;
     Context context;
-    public Boolean isVisible=false;
+    public Boolean isVisible = false;
     ImageView imageview_settings;
     private GoogleApiClient client;
     FrameLayout framgment_container;
     TextView navtextsupport;
-    String c_theme="";
-
+    String c_theme = "";
+    String fragType = "";
 
 
     @Override
@@ -72,21 +75,21 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
 //        tIcon(android.R.color.transparent);
         setContentView(R.layout.activity_home);
-        context=HomeActivity.this;
+        context = HomeActivity.this;
 
 //        allsong =  findViewById(R.id.home);
 //        albums =  findViewById(R.id.fav);
 //        fav =  findViewById(R.id.account);
-        drawer_layout =  findViewById(R.id.drawer_layout);
+        drawer_layout = findViewById(R.id.drawer_layout);
         imageview_settings = findViewById(R.id.imageview_settings);
         imageview_slider = findViewById(R.id.imageview_slider);
 //        imageview_back = findViewById(R.id.imageview_back);
-        imageView_search =  findViewById(R.id.imageview_search);
+        imageView_search = findViewById(R.id.imageview_search);
         framgment_container = findViewById(R.id.framgment_container);
         text_darkmode = findViewById(R.id.text_darkmode);
         navtextsupport = findViewById(R.id.navtextsupport);
 
-        NavigationView nav_view =findViewById(R.id.nav_view);
+        NavigationView nav_view = findViewById(R.id.nav_view);
 
         nav_view.bringToFront();
         client = new GoogleApiClient.Builder(context).addApi(AppIndex.API).build();
@@ -94,7 +97,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
 // Obtain the shared Tracker instance.
         callanalytics();
-
 
 
 //        allsong.setOnClickListener(this);
@@ -107,8 +109,19 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 //        drawer_layout.closeDrawers();
 
 //        settext_darkmode();
-        setFragment(0);
 
+
+        if (getIntent().getExtras() != null) {
+            fragType = getIntent().getExtras().getString(Const.FRAG_TYPE);
+            if (!TextUtils.isEmpty(fragType) && fragType.equalsIgnoreCase(Const.NOTIFICATION)) {
+                setFragment(3);
+            } else {
+                setFragment(3);
+            }
+
+        } else {
+            setFragment(3);
+        }
 
 
     }
@@ -151,11 +164,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case 2:
 //                replaceFragment(new SettingsFragment());
                 break;
+            case 3:
+                replaceFragment(new NotificationFragment());
+                break;
 
 
         }
     }
-
 
 
     /**
@@ -185,18 +200,18 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 //        client.disconnect();
 //    }
 
-        public void replaceFragment(Fragment fragment) {
-            FragmentManager fm = getSupportFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.replace(R.id.framgment_container, fragment);
+    public void replaceFragment(Fragment fragment) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.framgment_container, fragment);
 
-            if(isVisibleFragment) {
-                ft.addToBackStack("root_fragment");
-            }
-            isVisibleFragment=true;
-
-            ft.commit();
+        if (isVisibleFragment) {
+            ft.addToBackStack("root_fragment");
         }
+        isVisibleFragment = true;
+
+        ft.commit();
+    }
 
     @Override
     public void onClick(View view) {
@@ -223,15 +238,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 setFragment(2);
                 break;
 
-                case R.id.imageview_search:
-                    startActivity(new Intent(context, SearchResultActivity.class));
+            case R.id.imageview_search:
+                startActivity(new Intent(context, SearchResultActivity.class));
 //                    finishAffinity();
 //                    getFragmentManager().popBackStack();
                 break;
 
             case R.id.imageview_settings:
-                if (isVisible){
-                    isVisible=false;
+                if (isVisible) {
+                    isVisible = false;
                     AppIndex.AppIndexApi.end(client, getIndexApiAction());
                     client.disconnect();
 
@@ -240,18 +255,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 //                    FirebaseUserActions.getInstance().end(getAction());
 
 
-                }
-                else {
+                } else {
                     isVisible = true;
                     startActivity(new Intent("android.settings.CAST_SETTINGS"));
                 }
                 break;
-            case  R.id.imageview_slider:
-                if(!drawer_layout.isDrawerOpen(Gravity.LEFT)){
+            case R.id.imageview_slider:
+                if (!drawer_layout.isDrawerOpen(Gravity.LEFT)) {
                     drawer_layout.openDrawer(Gravity.LEFT);
 
-                }
-                else{
+                } else {
                     drawer_layout.closeDrawers();
 
                 }
@@ -260,7 +273,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.fav:
                 startActivity(new Intent(context, Fav_Booklists.class));
 
-                    drawer_layout.closeDrawers();
+                drawer_layout.closeDrawers();
 
                 break;
 //                case R.id.logout:
@@ -274,7 +287,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
-
 
 
     @Override
@@ -308,7 +320,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==2){
+        if (requestCode == 2) {
             this.recreate();
         }
     }
@@ -325,7 +337,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         if (best != null)
             intent.setClassName(best.activityInfo.packageName, best.activityInfo.name);
         intent.setData(Uri.parse("mailto:"));
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { email_id });
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{email_id});
 
 //        intent.putExtra(Intent.EXTRA_TEXT, "Mobile:"+ ""+PrefrenceUtils.readString(context,PrefrenceUtils.PREF_LASTNAME,""));
 //        intent.putExtra(Intent.EXTRA_TEXT, "Email Id:"+ ""+PrefrenceUtils.readString(context,PrefrenceUtils.PREF_LASTNAME,""));

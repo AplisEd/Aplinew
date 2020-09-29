@@ -60,7 +60,7 @@
         android:alpha="0.2"
         android:background="#707070"
         android:visibility="gone"
-        android:id="@+id/view"></View>
+        android:id="@+id/view"/>
 
 
 </LinearLayout>

@@ -7,11 +7,7 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-<FrameLayout
-    android:id="@+id/frame_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/textCol"></FrameLayout>
+
     <LinearLayout
         android:id="@+id/layout_bg"
         android:layout_width="match_parent"
@@ -33,7 +29,7 @@
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/vp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"></androidx.viewpager.widget.ViewPager>
+                    android:layout_height="match_parent" />
 
 
                 <com.badoualy.stepperindicator.StepperIndicator
@@ -62,14 +58,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <androidx.cardview.widget.CardView
+                   <!-- <androidx.cardview.widget.CardView
                         android:layout_width="@dimen/dp30"
                         android:layout_height="@dimen/dp30"
                         android:layout_alignParentLeft="true"
                         android:layout_margin="@dimen/dp10"
                         android:alpha="0.8"
                         android:elevation="10dp"
-
                         app:cardBackgroundColor="@color/textColblack"
                         app:cardCornerRadius="8dp">
 
@@ -77,9 +72,29 @@
                         <ImageView
                             android:layout_width="@dimen/dp30"
                             android:layout_height="@dimen/dp30"
+                            android:layout_centerVertical="true"
+                            android:onClick="onback"
+                            android:src="@drawable/ic_arrow_left"
+                            android:tint="@color/white" />
+                    </androidx.cardview.widget.CardView>-->
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="@dimen/dp30"
+                        android:layout_height="@dimen/dp30"
+                        android:layout_alignParentStart="true"
+                        android:layout_margin="@dimen/dp10"
+                        android:alpha="0.8"
+                        android:elevation="10dp"
+                        android:padding="@dimen/dp10"
+                        app:cardBackgroundColor="@color/textColblack"
+                        app:cardCornerRadius="8dp">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp30"
+                            android:layout_height="@dimen/dp30"
                             android:onClick="onback"
                             android:padding="@dimen/dp10"
-                            android:src="@drawable/back"></ImageView>
+                            android:src="@drawable/ic_arrow_left" />
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
@@ -98,9 +113,169 @@
                             android:layout_height="@dimen/dp30"
                             android:onClick="ontopic"
                             android:padding="@dimen/dp10"
-                            android:src="@mipmap/topic"></ImageView>
+                            android:src="@mipmap/topic" />
                     </androidx.cardview.widget.CardView>
                 </RelativeLayout>
+
+
+                <com.edu.fab.FABsMenu
+                    android:id="@+id/fabs_menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:clipChildren="false"
+                    android:visibility="gone"
+                    fab:fab_expandDirection="up"
+                    fab:fab_menuMargins="16dp"
+                    fab:fab_moreButtonBackgroundColor="#999999"
+                    fab:fab_moreButtonPlusIcon="@mipmap/more"
+                    fab:fab_moreButtonRippleColor="#999999"
+                    fab:fab_moreButtonSize="normal">
+
+                    <!-- This is the item that appears at the top of the menu -->
+                    <com.edu.fab.TitleFAB
+                        android:id="@+id/to_remove"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:visibility="gone"
+                        fab:backgroundTint="#999999"
+                        fab:fabSize="mini"
+                        fab:fab_title="This is a custom title"
+                        fab:fab_title_backgroundColor="#999999"
+                        fab:fab_title_textColor="@android:color/white"
+                        fab:rippleColor="@color/gray"
+                        fab:srcCompat="@mipmap/more" />
+
+
+                    <com.edu.fab.TitleFAB
+                        android:id="@+id/diaryfab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        fab:backgroundTint="@color/colorAccent"
+                        fab:fabSize="mini"
+                        fab:fab_enableTitleClick="true"
+                        fab:fab_title="Draw"
+                        fab:rippleColor="@color/colorAccent"
+                        fab:srcCompat="@mipmap/snip" />
+
+                    <com.edu.fab.TitleFAB
+                        android:id="@+id/noticefab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        fab:backgroundTint="@color/colorAccent"
+                        fab:fabSize="mini"
+                        fab:fab_title="Snip"
+                        fab:rippleColor="@color/colorAccent"
+                        fab:srcCompat="@mipmap/draw" />
+
+                </com.edu.fab.FABsMenu>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+
+
+                    >
+
+                    <LinearLayout
+                        android:id="@+id/viewpagertopiclayer"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:alpha="0.6"
+                        android:background="@color/textColblack"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:orientation="vertical"
+                        android:padding="@dimen/dp20">
+
+
+                        <TextView
+                            android:id="@+id/text_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp30"
+                            android:fontFamily="@font/platfairmediumheading"
+                            android:maxEms="25"
+                            android:padding="@dimen/dp2"
+                            android:text="Hello"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/dp20" />
+
+                        <TextView
+                            android:id="@+id/text_subtitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/gillsansmediumsubheading"
+                            android:maxEms="25"
+                            android:padding="@dimen/dp3"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/dp18" />
+
+                        <at.blogc.android.views.ExpandableTextView
+                            android:id="@+id/text_subdetail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/gillsansadescription"
+                            android:maxLines="2"
+                            android:padding="@dimen/dp3"
+                            android:scrollbars="none"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/dp16"
+
+
+                            />
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rec_view"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp6"
+                                android:nestedScrollingEnabled="false"/>
+
+                            <com.facebook.shimmer.ShimmerFrameLayout
+                                android:id="@+id/shimmerFrameLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:orientation="vertical"
+                                android:visibility="gone">
+
+                                <!-- Adding 15 rows of placeholders -->
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <include layout="@layout/editor_secondsub_adaptershimmer" />
+
+                                    <include layout="@layout/editor_secondsub_adaptershimmer" />
+
+
+                                </LinearLayout>
+                            </com.facebook.shimmer.ShimmerFrameLayout>
+
+                        </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/leftpanel"
@@ -163,161 +338,9 @@
 
                 </LinearLayout>
 
-                <com.edu.fab.FABsMenu
-                    android:id="@+id/fabs_menu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:clipChildren="false"
-                    fab:fab_expandDirection="up"
-                    fab:fab_menuMargins="16dp"
-                    fab:fab_moreButtonBackgroundColor="#999999"
-                    fab:fab_moreButtonPlusIcon="@mipmap/more"
-                    fab:fab_moreButtonRippleColor="#999999"
-                    fab:fab_moreButtonSize="normal"
-                    android:visibility="gone">
-
-                    <!-- This is the item that appears at the top of the menu -->
-                    <com.edu.fab.TitleFAB
-                        android:id="@+id/to_remove"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginBottom="15dp"
-                        android:visibility="gone"
-                        fab:backgroundTint="#999999"
-                        fab:fabSize="mini"
-                        fab:fab_title="This is a custom title"
-                        fab:fab_title_backgroundColor="#999999"
-                        fab:fab_title_textColor="@android:color/white"
-                        fab:rippleColor="@color/gray"
-                        fab:srcCompat="@mipmap/more" />
-
-
-                    <com.edu.fab.TitleFAB
-                        android:id="@+id/diaryfab"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        fab:backgroundTint="@color/colorAccent"
-                        fab:fabSize="mini"
-                        fab:fab_enableTitleClick="true"
-                        fab:fab_title="Draw"
-                        fab:rippleColor="@color/colorAccent"
-                        fab:srcCompat="@mipmap/snip" />
-
-                    <com.edu.fab.TitleFAB
-                        android:id="@+id/noticefab"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        fab:backgroundTint="@color/colorAccent"
-                        fab:fabSize="mini"
-                        fab:fab_title="Snip"
-                        fab:rippleColor="@color/colorAccent"
-                        fab:srcCompat="@mipmap/draw" />
-
-                </com.edu.fab.FABsMenu>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:weightSum="2"
-
-
-                    >
-
-                    <LinearLayout
-                        android:id="@+id/viewpagertopiclayer"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:padding="@dimen/dp10"
-
-                        >
-
-
-                        <TextView
-                            android:id="@+id/text_title"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp30"
-                            android:fontFamily="@font/platfairmediumheading"
-                            android:text="Hello"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/dp20"></TextView>
-
-                        <TextView
-                            android:id="@+id/text_subtitle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp10"
-                            android:fontFamily="@font/gillsansmediumsubheading"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/dp18"></TextView>
-
-                        <at.blogc.android.views.ExpandableTextView
-                            android:id="@+id/text_subdetail"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp6"
-                            android:adjustViewBounds="true"
-                            android:ellipsize="end"
-                            android:fontFamily="@font/gillsansadescription"
-                            android:maxLines="3"
-                            android:scrollbars="none"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/dp16"
-
-
-                            />
-
-
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rec_view"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp6"></androidx.recyclerview.widget.RecyclerView>
-                        <com.facebook.shimmer.ShimmerFrameLayout
-                            android:id="@+id/shimmerFrameLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:orientation="vertical"
-                            android:visibility="gone">
-
-                            <!-- Adding 15 rows of placeholders -->
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <include layout="@layout/editor_secondsub_adaptershimmer" />
-
-                                <include layout="@layout/editor_secondsub_adaptershimmer" />
-
-
-
-
-
-
-                            </LinearLayout>
-                        </com.facebook.shimmer.ShimmerFrameLayout>
-
-</RelativeLayout>
-                    </LinearLayout>
-                </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
+
     </LinearLayout>
 
 

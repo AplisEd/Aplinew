@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#ffffff</color>
-    <color name="colorPrimaryDark">#ffffff</color>
+    <color name="colorPrimaryDark">#010101</color>
     <color name="colorAccent">#010101</color>
 
 
@@ -22,6 +22,7 @@
     <color name="textCol">#9E9E9C</color>
     <color name="textColdaffodil">#707070</color>
     <color name="textColblack">#010101</color>
+    <color name="black_trans">#80010101</color>
     <color name="textColblue">#013158</color>
     <color name="ColorDark">#010101</color>
     <color name="ColorTextGrey">#828282</color>
@@ -31,4 +32,9 @@
     <color name="indicator_2">#64A4A4</color>
     <color name="indicator_3">#66D7B9</color>
     <color name="indicator_4">#FDBC7D</color>
+
+    <color name="red">#d50000</color>
+    <color name="color_badge">#F57F17</color>
+    <color name="light_black_font">#4B4B4B</color>
+
 </resources>

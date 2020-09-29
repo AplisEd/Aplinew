@@ -7,10 +7,32 @@ public class User {
     private String id;
     @SerializedName("first_name")
     private String first_name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @SerializedName("name")
+    private String name;
     @SerializedName("last_name")
     private String last_name;
     @SerializedName("email")
     private String email;
+
+    @SerializedName("role")
+    private String userType;
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
 
     public String getDob() {
         return dob;
@@ -34,6 +56,17 @@ public class User {
     private String gender;
     @SerializedName("jwtToken")
     private String jwtToken;
+
+    public String getSchool_type() {
+        return school_type;
+    }
+
+    public void setSchool_type(String school_type) {
+        this.school_type = school_type;
+    }
+
+    @SerializedName("school_type")
+    private String school_type;
     @SerializedName("dash")
     private String dash;
 

@@ -26,8 +26,7 @@ public class DiscoverdetailThirdRetrofitModel {
     public void setTitle(String title) {
         this.title = title;
     }
-
-
+    
     public String getBook_cover() {
         return book_cover;
     }

@@ -6,7 +6,6 @@ import java.util.List;
 
 public class BarFourthColumn_categoryRetrofitModel {
 
-
     public String getName() {
         return name;
     }

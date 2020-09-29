@@ -10,7 +10,9 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
@@ -21,11 +23,13 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.Utils.Helper;
 import com.edu.aplis.R;
 import com.edu.book.CourseDetail;
 import com.edu.browse.BrowseFirstRetrofitModel;
@@ -62,7 +66,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Fav_Booklists extends AppCompatActivity implements ResponceQueues, ClickAdapter {
+public class Fav_Booklists extends Fragment implements ResponceQueues, ClickAdapter {
     Context context;
     ArrayList<BooksSearch> booksserieslist;
     BooksSearch books;
@@ -75,22 +79,21 @@ public class Fav_Booklists extends AppCompatActivity implements ResponceQueues, 
     TextView text_search;
     LinearLayout coordinatorLayout;
     private Paint p = new Paint();
-ClickAdapter clickAdapter;
+    ClickAdapter clickAdapter;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fav_booklist);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fav_booklist, container, false);
 
-        context = Fav_Booklists.this;
+        context = getActivity();
         clickAdapter=this;
-        text_title = findViewById(R.id.text_title);
-        text_subtitle = findViewById(R.id.text_subtitle);
-        text_search = findViewById(R.id.text_search);
-        recyclerView = findViewById(R.id.recyclerview);
-        coordinatorLayout = findViewById(R.id.coordinatorLayout);
+        text_title = rootView.findViewById(R.id.text_title);
+        text_subtitle = rootView.findViewById(R.id.text_subtitle);
+        text_search = rootView.findViewById(R.id.text_search);
+        recyclerView = rootView.findViewById(R.id.recyclerview);
+        coordinatorLayout = rootView.findViewById(R.id.coordinatorLayout);
         booksserieslist = new ArrayList<>();
-        booksserieslist = new ArrayList<>();
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(linearLayoutManager);
 //        int resId = R.anim.layout_animation_fall_down;
@@ -101,18 +104,17 @@ ClickAdapter clickAdapter;
 
 //        uniqure_id = getIntent().getStringExtra("unique_id");
         uniqure_url = Cons.GET_FAVURL;
-//        uniqure_url = getIntent().getStringExtra("unique_url");
-
-//        Log.e("TAGERROR","des"+getIntent().getStringExtra("description")+" "+uniqure_url);
 
         makeHttpCall(uniqure_url,1);
+
+        return  rootView;
 
 //        enableSwipe();
     }
 
     private void makeHttpCall( String url, int posttype) {
-
-        Api api = RetrofitClient.getClient(context,Api.BASE_URL).create(Api.class);
+        if (Helper.isNetworkConnected(context)) {
+        Api api = RetrofitClient.getClient(context).create(Api.class);
 
         Call<FavRetrofitModel> call = api.getFavBookLists(url);
 //        Log.e("discover",call.toString());
@@ -144,9 +146,10 @@ ClickAdapter clickAdapter;
                 }
 
             }
+
             @Override
-            public void onFailure(Call<FavRetrofitModel>call, Throwable t) {
-                Log.e("errordo",t.getMessage());
+            public void onFailure(Call<FavRetrofitModel> call, Throwable t) {
+                Log.e("errordo", t.getMessage());
             }
         });
 //        trustEveryone();
@@ -155,6 +158,10 @@ ClickAdapter clickAdapter;
 //        hashMap.clear();
 //        ApiService apiService = new ApiService(context, this, url , hashMap, posttype);
 //        apiService.execute();
+
+    }else {
+
+            Toast.makeText(context, R.string.Retry_with_Internet_connection, Toast.LENGTH_LONG).show();}
     }
 
     @Override
@@ -212,14 +219,11 @@ ClickAdapter clickAdapter;
 
     @Override
     public void clickoncard(ImageView view, int position, String id, String content, String title, String long_desc, List<Books> booksList, String image_Ar, String discover_id) {
-        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(Fav_Booklists.this,view,"cover_image");
+        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),view,"cover_image");
 
         startActivity(new Intent(context, CourseDetail.class).putExtra("book_id", id).putExtra("cover_image",content),activityOptionsCompat.toBundle());
     }
 
-    public void imageback(View view) {
-        finish();
-    }
     private void enableSwipe(){
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 

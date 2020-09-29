@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.edu.DrawerModel;
 import com.edu.aplis.R;
 import com.edu.browse.BrowseFragment;
-import com.edu.discover.DiscoverActivity;
+import com.edu.discover.DiscoverFragment;
 import com.edu.search.SearchResultActivity;
 import com.edu.slider.AddTaskActivity;
 import com.google.android.material.tabs.TabLayout;
@@ -80,7 +80,7 @@ public class MainFragment extends Fragment implements AddTaskActivity.Messageint
 
 
             getActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.pager, new DiscoverActivity()).commit();
+                    .replace(R.id.pager, new DiscoverFragment()).commit();
 
             tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                 @Override
@@ -122,7 +122,7 @@ public class MainFragment extends Fragment implements AddTaskActivity.Messageint
                                 }
                             }
                             getActivity().getSupportFragmentManager().beginTransaction()
-                                    .replace(R.id.pager, new DiscoverActivity()).commit();
+                                    .replace(R.id.pager, new DiscoverFragment()).commit();
                             // Continue for each tab in TabLayout
                     }
 

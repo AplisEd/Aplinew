@@ -208,8 +208,7 @@ public class CourseDetail extends AppCompatActivity implements View.OnClickListe
                 final View view = inflater.inflate(R.layout.homearrivals, null);
                 ImageView imageView = view.findViewById(R.id.image);
                 TextView text_name = view.findViewById(R.id.text_name);
-                Glide
-                        .with(context)
+                Glide.with(context)
                         .load(serieslist.get(i).getPro_image())
                         .centerCrop()
                         .into(imageView);
@@ -219,10 +218,8 @@ public class CourseDetail extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onClick(View view) {
                         startActivity(new Intent(context, CourseDetail.class).putExtra("book_id", serieslist.get(finalI).getProduct_id()));
-
                     }
                 });
-
                 ll_scrollseries.addView(view);
             }
 
@@ -233,8 +230,8 @@ public class CourseDetail extends AppCompatActivity implements View.OnClickListe
     private void makehttpcall() {
         shimmerFrameLayout.startShimmerAnimation();
         String book_id = getIntent().getStringExtra("book_id");
-//
-//
+
+
 //        Api api = RetrofitClient.getClient(context, Api.BASE_URL).create(Api.class);
 //
 //        Call<BookFirstRetrofitModel> call = api.getBookCourseDetails(Cons.BOOKDETAILS_URL+book_id);
@@ -275,7 +272,6 @@ public class CourseDetail extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.linearstart:
                 break;
-
             case R.id.linearresume:
                 break;
             case R.id.linear_notes:
@@ -512,7 +508,7 @@ public class CourseDetail extends AppCompatActivity implements View.OnClickListe
 
 
     private void callfavunfavapi(final String url){
-        Api api = RetrofitClient.getClient(context,Api.BASE_URL).create(Api.class);
+        Api api = RetrofitClient.getClient(context).create(Api.class);
 
         Call<FavUnFavResponse> call = api.dofavUnfavbook(url);
 //        Log.e("discover",call.toString());

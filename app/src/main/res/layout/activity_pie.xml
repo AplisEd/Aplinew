@@ -33,7 +33,7 @@
              android:fontFamily="@font/playfairdisplayblack"
              android:textSize="@dimen/dp16"
              android:paddingTop="@dimen/dp10"
-             android:layout_marginTop="@dimen/dp30"></TextView>
+             android:layout_marginTop="@dimen/dp30"/>
          <TextView
              android:id="@+id/text_piesubtitle"
              android:layout_width="wrap_content"
@@ -42,8 +42,7 @@
              android:textColor="@color/textColblack"
              android:fontFamily="@font/playfairdisplayregular"
              android:textSize="@dimen/dp16"
-             android:paddingTop="@dimen/dp10"
-        ></TextView>
+             android:paddingTop="@dimen/dp10"/>
          <TextView
              android:id="@+id/text_piedescription"
              android:layout_width="wrap_content"
@@ -52,7 +51,7 @@
              android:textColor="@color/textCol"
              android:fontFamily="@font/playfairdisplayregular"
              android:textSize="@dimen/dp16"
-             android:paddingTop="@dimen/dp10"></TextView>
+             android:paddingTop="@dimen/dp10"/>
 
          <ScrollView
              android:layout_width="wrap_content"
@@ -62,7 +61,7 @@
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
                  android:orientation="vertical"
-                 android:padding="@dimen/dp10"></LinearLayout>
+                 android:padding="@dimen/dp10"/>
          </ScrollView>
      </LinearLayout>
 
@@ -149,7 +148,7 @@
              android:layout_gravity="right"
              android:layout_alignParentRight="true"
              android:visibility="gone"
-             ></ImageView>
+             />
 
 
 
@@ -174,9 +173,7 @@
              <LinearLayout
                  android:layout_width="match_parent"
                  android:layout_height="match_parent"
-                 android:orientation="vertical"
-
-                 >
+                 android:orientation="vertical">
 
                  <RelativeLayout
                      android:layout_width="match_parent"
@@ -191,7 +188,7 @@
                          android:layout_gravity="right"
                          android:layout_alignParentLeft="true"
                          android:visibility="visible"
-                         ></ImageView>
+                         />
                 <LinearLayout
                     android:layout_toRightOf="@+id/piesideimagebar"
                     android:layout_marginLeft="@dimen/dp10"
@@ -208,7 +205,7 @@
                      android:textSize="@dimen/dp16"
                      android:paddingTop="@dimen/dp10"
                      android:layout_marginLeft="@dimen/dp10"
-                     ></TextView>
+                     />
                  <TextView
                      android:id="@+id/text_piesidesubtitle"
                      android:layout_width="wrap_content"
@@ -219,20 +216,20 @@
                      android:textSize="@dimen/dp16"
                      android:paddingTop="@dimen/dp10"
                      android:layout_marginLeft="@dimen/dp10"
-                     ></TextView>
+                     />
 
                  <at.blogc.android.views.ExpandableTextView
                      android:id="@+id/text_piesidedescription"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginLeft="@dimen/dp10"
+                     android:layout_marginStart="@dimen/dp10"
                      android:fontFamily="@font/playfairdisplayregular"
                      android:paddingTop="@dimen/dp10"
                      android:maxLines="3"
                      android:ellipsize="end"
                      android:text="Ititle"
                      android:textColor="@color/textCol"
-                     android:textSize="@dimen/dp16"></at.blogc.android.views.ExpandableTextView>
+                     android:textSize="@dimen/dp16"/>
                 </LinearLayout>
                  </RelativeLayout>
 
@@ -247,7 +244,7 @@
                      android:src="@drawable/image_notification"
                      android:scaleType="centerCrop"
                      android:visibility="gone"
-                     ></ImageView>
+                     />
                  <WebView
                      android:id="@+id/piesideweb"
                      android:layout_width="match_parent"
@@ -255,7 +252,7 @@
                      android:src="@drawable/image_notification"
                      android:scaleType="centerCrop"
                      android:visibility="gone"
-                     ></WebView>
+                     />
 
                      <com.google.android.exoplayer2.ui.SimpleExoPlayerView
                          android:id="@+id/piesidevideoFullScreenPlayer"
@@ -314,7 +311,7 @@
                 android:src="@drawable/back"
                 android:onClick="onback"
                 android:padding="@dimen/dp10"
-                ></ImageView>
+                />
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
             android:layout_width="@dimen/dp30"
@@ -332,7 +329,7 @@
                 android:src="@mipmap/topic"
                 android:onClick="ontopic"
                 android:padding="@dimen/dp10"
-                ></ImageView>
+                />
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
 

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.edu.aplis.DemoApplication;
 import com.edu.aplis.R;
@@ -61,10 +63,8 @@ public class Changepassword_Activity extends AppCompatActivity implements
         ed_npswd = findViewById(R.id.ed_npswd);
         ed_cpswd = findViewById(R.id.ed_cpswd);
         verify = findViewById(R.id.text_reset);
-        cancel_image = findViewById(R.id.cancel_image);
 
         callanalytics();
-        cancel_image.setOnClickListener(this);
         verify.setOnClickListener(this);
 
 
@@ -79,35 +79,21 @@ public class Changepassword_Activity extends AppCompatActivity implements
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.text_reset:
-                if (edittext_otp.getText().toString().equalsIgnoreCase("")) {
-                    Toast.makeText(context, "Invalid verification code", Toast.LENGTH_SHORT).show();
-                }
-
-
-
-                else if (!ed_npswd.getText().toString().equalsIgnoreCase(ed_cpswd.getText().toString())) {
-                    Toast.makeText(context, "New password and confirm password must be match", Toast.LENGTH_SHORT).show();
-
-                }
-                else {
-                    otppage.otp(edittext_otp.getText().toString(),ed_npswd.getText().toString());
-                }
-
-
-                break;
-
-            default:
-                break;
+        if (v.getId() == R.id.text_reset) {
+            if (edittext_otp.getText().toString().equalsIgnoreCase("")) {
+                Toast.makeText(context, "Invalid verification code", Toast.LENGTH_SHORT).show();
+            } else if (!ed_npswd.getText().toString().equalsIgnoreCase(ed_cpswd.getText().toString())) {
+                Toast.makeText(context, "New password and confirm password must be match", Toast.LENGTH_SHORT).show();
+            } else {
+                otppage.otp(edittext_otp.getText().toString(), ed_npswd.getText().toString());
+            }
         }
-
     }
 
 
     @Override
     public void otp(String otp, String password) {
-        Api api = RetrofitClient.getClient(context,Api.BASE_URL).create(Api.class);
+        Api api = RetrofitClient.getClient(context).create(Api.class);
 
         Call<EmailResponse> call = api.getResetPswd(PrefrenceUtils.readString(context,PrefrenceUtils.PREF_EMAIL,""),otp,password);
 
@@ -144,5 +130,17 @@ public class Changepassword_Activity extends AppCompatActivity implements
     private void callanalytics() {
         DemoApplication application = (DemoApplication) getApplication();
         application.trackScreenView(getClass().getSimpleName());
+    }
+
+    public void onback(View view) {
+       onBackPressed();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+
+            super.onBackPressed();
+
     }
 }

@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.edu.home.HomeActivity;
+import com.edu.home.HomeActivityNew;
 import com.edu.preference.PrefrenceUtils;
 import com.edu.reset.EmailResponse;
 import com.edu.reset.Otp_Activity;
@@ -81,14 +82,14 @@ public class MainActivity extends AppCompatActivity implements ResponceQueues, V
     EditText ed_passwordsignup;
     TextView text_continue;
     EditText eddobsignup;
-    String getgender_value="";
+    String getgender_value = "";
     EditText ed_emailsignin;
     EditText ed_passwordsignin;
     TextView test;
-    int day,month,year;
+    int day, month, year;
     DatePicker datePicker1;
-    int mHour,mMinute;
-    HashMap<String,String> hashMap=new HashMap<>();
+    int mHour, mMinute;
+    HashMap<String, String> hashMap = new HashMap<>();
     ArrayList<String> genderStringArrayList;
     Otppage otppage;
     VerifyOtppage verifyOtppage;
@@ -101,12 +102,12 @@ public class MainActivity extends AppCompatActivity implements ResponceQueues, V
         setContentView(R.layout.activity_main);
         context = MainActivity.this;
         verifyOtppage = this;
-        if(PrefrenceUtils.readBoolean(context,PrefrenceUtils.PREF_LOGINTYPE,false)==true){
-            Log.e("TAG",PrefrenceUtils.PREF_DEVIC_TOKEN);
-            startActivity(new Intent(context, HomeActivity.class));
+        if (PrefrenceUtils.readBoolean(context, PrefrenceUtils.PREF_LOGINTYPE, false) == true) {
+            Log.e("TAG", PrefrenceUtils.PREF_DEVIC_TOKEN);
+            startActivity(new Intent(context, HomeActivityNew.class));
             finish();
         }
-        Log.e("TAG",PrefrenceUtils.readString(context,PrefrenceUtils.PREF_DEVIC_TOKEN,""));
+        Log.e("TAG", PrefrenceUtils.readString(context, PrefrenceUtils.PREF_DEVIC_TOKEN, ""));
 
         ed_fnamesignup = findViewById(R.id.ed_fnamesignup);
         ed_mobsignup = findViewById(R.id.ed_mobsignup);
@@ -129,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements ResponceQueues, V
 
         progressBar = findViewById(R.id.progressBar);
 
-        genderStringArrayList= new ArrayList<>();
+        genderStringArrayList = new ArrayList<>();
 //        openAR();
         final ViewPager viewPager = findViewById(R.id.viewpager);
         setupViewPager(viewPager);
@@ -154,13 +155,12 @@ public class MainActivity extends AppCompatActivity implements ResponceQueues, V
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-if (ed_passwordsignup.getText().toString().length()>5){
-    text_continue.setClickable(true);
-}
-else{
-    text_continue.setEnabled(false);
+                if (ed_passwordsignup.getText().toString().length() > 5) {
+                    text_continue.setClickable(true);
+                } else {
+                    text_continue.setEnabled(false);
 
-}
+                }
             }
 
             @Override
@@ -212,8 +212,8 @@ else{
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                    getgender_value = genderlistsignup.getText().toString();
-                    Log.e("TAG", i + " " + getgender_value + "");
+                getgender_value = genderlistsignup.getText().toString();
+                Log.e("TAG", i + " " + getgender_value + "");
 
             }
 
@@ -243,7 +243,7 @@ else{
 
     }
 
-    private void openAR(){
+    private void openAR() {
         Intent sceneViewerIntent = new Intent(Intent.ACTION_VIEW);
         sceneViewerIntent.setData(Uri.parse("https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Avocado/glTF/Avocado.gltf"));
         sceneViewerIntent.setPackage("com.google.android.googlequicksearchbox");
@@ -263,23 +263,21 @@ else{
     public void text__continueclick(View view) {
         datePicker1.setVisibility(View.GONE);
 
-        if (!isValidEmail(ed_emailsignup.getText().toString())){
+        if (!isValidEmail(ed_emailsignup.getText().toString())) {
             ed_emailsignup.setError("Enter correct email");
-            Toast.makeText(context,"Enter correct email",Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Enter correct email", Toast.LENGTH_LONG).show();
 
-            return ;
-        }
-
-
-
-
-        if (!isValidPassword(ed_passwordsignup.getText().toString())){
-
-            Toast.makeText(context,"Password accept only alphanumeric and must contain at least 6 character",Toast.LENGTH_LONG).show();
             return;
         }
 
-        if((eddobsignup.getText().toString().equalsIgnoreCase(""))){
+
+        if (!isValidPassword(ed_passwordsignup.getText().toString())) {
+
+            Toast.makeText(context, "Password accept only alphanumeric and must contain at least 6 character", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if ((eddobsignup.getText().toString().equalsIgnoreCase(""))) {
             eddobsignup.setError("Enter DOB");
             return;
         }
@@ -296,14 +294,14 @@ else{
     }
 
     public void textsigninaccount(View view) {
-        if(!isFormValid()){
-            Toast.makeText(context,"Please select all fields",Toast.LENGTH_LONG).show();
+        if (!isFormValid()) {
+            Toast.makeText(context, "Please select all fields", Toast.LENGTH_LONG).show();
             return;
         }
         progressBar.setVisibility(View.VISIBLE);
-        Api api = RetrofitClient.getClient(context,Api.BASE_URL).create(Api.class);
+        Api api = RetrofitClient.getClient(context).create(Api.class);
 
-        Call<UserAccount> call = api.getLoginResponse(ed_emailsignin.getText().toString(),ed_passwordsignin.getText().toString());
+        Call<UserAccount> call = api.getLoginResponse(ed_emailsignin.getText().toString(), ed_passwordsignin.getText().toString());
 
         call.enqueue(new Callback<UserAccount>() {
             @Override
@@ -318,18 +316,17 @@ else{
                         PrefrenceUtils.writeString(context, PrefrenceUtils.PREF_PASS_GENERATED, ed_passwordsignin.getText().toString());
                         PrefrenceUtils.writeString(context, PrefrenceUtils.PREF_NM, userAccount.getUser().getFirst_name());
                         PrefrenceUtils.writeString(context, PrefrenceUtils.PREF_EMAIL, userAccount.getUser().getEmail());
-                        PrefrenceUtils.writeString(context, PrefrenceUtils.PREF_DOB,userAccount.getUser().getDob());
+                        PrefrenceUtils.writeString(context, PrefrenceUtils.PREF_DOB, userAccount.getUser().getDob());
                         PrefrenceUtils.writeString(context, PrefrenceUtils.PREF_ID, userAccount.getUser().getId());
-                        PrefrenceUtils.writeString(context, PrefrenceUtils.PREF_GENDER,userAccount.getUser().getGender());
+                        PrefrenceUtils.writeString(context, PrefrenceUtils.PREF_GENDER, userAccount.getUser().getGender());
                         PrefrenceUtils.writeString(context, PrefrenceUtils.PREF_DEVIC_TOKEN, userAccount.getUser().getJwtToken());
                         PrefrenceUtils.writeBoolean(context, PrefrenceUtils.PREF_LOGINTYPE, true);
-                        startActivity(new Intent(context, HomeActivity.class));
-                    }
-                    else if(userAccount.getStatus().equalsIgnoreCase("0")){
-                        if (userAccount.getMessage().equals("Your email is not verified")){
-                            Toast.makeText(context,"Please verify your email",Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(context, HomeActivityNew.class));
+                    } else if (userAccount.getStatus().equalsIgnoreCase("0")) {
+                        if (userAccount.getMessage().equals("Your email is not verified")) {
+                            Toast.makeText(context, "Please verify your email", Toast.LENGTH_LONG).show();
 
-                            Api apiverify = RetrofitClient.getClient(context,Api.BASE_URL).create(Api.class);
+                            Api apiverify = RetrofitClient.getClient(context).create(Api.class);
 
                             Call<EmailResponse> callverify = apiverify.getVerrifyEmailID(ed_emailsignin.getText().toString());
 
@@ -338,48 +335,41 @@ else{
                                 public void onResponse(Call<EmailResponse> call, Response<EmailResponse> response) {
 
                                     try {
-                                        Log.e("errordo","try");
+                                        Log.e("errordo", "try");
 
-                                        EmailResponse emailResponse=response.body();
-                                        if (emailResponse.getStatus().equalsIgnoreCase("1")){
-                                            Log.e("errordo","try "+emailResponse.getStatus());
+                                        EmailResponse emailResponse = response.body();
+                                        if (emailResponse.getStatus().equalsIgnoreCase("1")) {
+                                            Log.e("errordo", "try " + emailResponse.getStatus());
 
 //                                           Toast.makeText(context,emailResponse.getEmail()+"!!",Toast.LENGTH_LONG).show();
-                                            startActivityForResult(new Intent(context,Verify_Activity.class),3);
-                                        }
-                                        else{
-                                            Log.e("errordo","else");
+                                            startActivityForResult(new Intent(context, Verify_Activity.class), 3);
+                                        } else {
+                                            Log.e("errordo", "else");
 
                                         }
 //                    Log.e("account_detail",   userAccount.getUser().getEmail()+" " + jsonObject + " " + response.toString());
-                                    }
-                                    catch (Exception e){
-                                        Log.e("errordo",e+"");
+                                    } catch (Exception e) {
+                                        Log.e("errordo", e + "");
 
                                     }
                                 }
 
                                 @Override
                                 public void onFailure(Call<EmailResponse> call, Throwable t) {
-                                    Log.e("errordo",t.getMessage());
+                                    Log.e("errordo", t.getMessage());
                                 }
                             });
 
 
-
+                        } else {
+                            Toast.makeText(context, "Username or password is incorrect", Toast.LENGTH_LONG).show();
                         }
-                        else{
-                            Toast.makeText(context,"Username or password is incorrect",Toast.LENGTH_LONG).show();
-                        }
-                    }
-
-                    else{
-                        Toast.makeText(context,"Username or password is incorrect",Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(context, "Username or password is incorrect", Toast.LENGTH_LONG).show();
                     }
 //                    Log.e("account_detail",   userAccount.getUser().getEmail()+" " + jsonObject + " " + response.toString());
-                }
-                catch (Exception e){
-                   Log.e("account_detail",   e+"");
+                } catch (Exception e) {
+                    Log.e("account_detail", e + "");
 
 
                 }
@@ -387,7 +377,7 @@ else{
 
             @Override
             public void onFailure(Call<UserAccount> call, Throwable t) {
-                Log.e("errordo",t.getMessage());
+                Log.e("errordo", t.getMessage());
             }
         });
 
@@ -400,15 +390,15 @@ else{
     }
 
     private void dosignin() {
-        if(!isFormValid()){
+        if (!isFormValid()) {
 //            Toast.makeText(context,"Please select all fields",Toast.LENGTH_LONG).show();
             return;
         }
         progressBar.setVisibility(View.VISIBLE);
 
-        Api api = RetrofitClient.getClient(context,Api.BASE_URL).create(Api.class);
+        Api api = RetrofitClient.getClient(context).create(Api.class);
 
-        Call<UserAccount> call = api.getLoginResponse(ed_emailsignin.getText().toString(),ed_passwordsignin.getText().toString());
+        Call<UserAccount> call = api.getLoginResponse(ed_emailsignin.getText().toString(), ed_passwordsignin.getText().toString());
 
         call.enqueue(new Callback<UserAccount>() {
             @Override
@@ -424,19 +414,18 @@ else{
                         PrefrenceUtils.writeString(context, PrefrenceUtils.PREF_EMAIL, ed_emailsignin.getText().toString());
                         PrefrenceUtils.writeString(context, PrefrenceUtils.PREF_NM, userAccount.getUser().getFirst_name());
                         PrefrenceUtils.writeString(context, PrefrenceUtils.PREF_EMAIL, userAccount.getUser().getEmail());
-                        PrefrenceUtils.writeString(context, PrefrenceUtils.PREF_DOB,userAccount.getUser().getDob());
+                        PrefrenceUtils.writeString(context, PrefrenceUtils.PREF_DOB, userAccount.getUser().getDob());
                         PrefrenceUtils.writeString(context, PrefrenceUtils.PREF_ID, userAccount.getUser().getId());
-                        PrefrenceUtils.writeString(context, PrefrenceUtils.PREF_GENDER,userAccount.getUser().getGender());
+                        PrefrenceUtils.writeString(context, PrefrenceUtils.PREF_GENDER, userAccount.getUser().getGender());
                         PrefrenceUtils.writeString(context, PrefrenceUtils.PREF_DEVIC_TOKEN, userAccount.getUser().getJwtToken());
                         PrefrenceUtils.writeBoolean(context, PrefrenceUtils.PREF_LOGINTYPE, true);
 
-                        startActivity(new Intent(context, HomeActivity.class));
-                    }
-                    else if(userAccount.getStatus().equalsIgnoreCase("0")){
-                        if (userAccount.getMessage().equals("Your email is not verified")){
-                            Toast.makeText(context,"Please verify your email",Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(context, HomeActivityNew.class));
+                    } else if (userAccount.getStatus().equalsIgnoreCase("0")) {
+                        if (userAccount.getMessage().equals("Your email is not verified")) {
+                            Toast.makeText(context, "Please verify your email", Toast.LENGTH_LONG).show();
 
-                            Api apiverify = RetrofitClient.getClient(context,Api.BASE_URL).create(Api.class);
+                            Api apiverify = RetrofitClient.getClient(context).create(Api.class);
 
                             Call<EmailResponse> callverify = apiverify.getVerrifyEmailID(ed_emailsignin.getText().toString());
 
@@ -445,45 +434,39 @@ else{
                                 public void onResponse(Call<EmailResponse> call, Response<EmailResponse> response) {
 
                                     try {
-                                        Log.e("errordo","try");
+                                        Log.e("errordo", "try");
 
-                                        EmailResponse emailResponse=response.body();
-                                        if (emailResponse.getStatus().equalsIgnoreCase("1")){
-                                            Log.e("errordo","try "+emailResponse.getStatus());
+                                        EmailResponse emailResponse = response.body();
+                                        if (emailResponse.getStatus().equalsIgnoreCase("1")) {
+                                            Log.e("errordo", "try " + emailResponse.getStatus());
 
-                                            startActivityForResult(new Intent(context,Verify_Activity.class),3);
+                                            startActivityForResult(new Intent(context, Verify_Activity.class), 3);
 
-                                        }
-                                        else{
-                                            Log.e("errordo","try "+"else");
+                                        } else {
+                                            Log.e("errordo", "try " + "else");
 
                                         }
 //                    Log.e("account_detail",   userAccount.getUser().getEmail()+" " + jsonObject + " " + response.toString());
-                                    }
-                                    catch (Exception e){
-                                        Log.e("errordo",e+"");
+                                    } catch (Exception e) {
+                                        Log.e("errordo", e + "");
 
                                     }
                                 }
 
                                 @Override
                                 public void onFailure(Call<EmailResponse> call, Throwable t) {
-                                    Log.e("errordo",t.getMessage());
+                                    Log.e("errordo", t.getMessage());
                                 }
                             });
 
 
-
                         }
 
+                    } else {
+                        Toast.makeText(context, "Username or password is incorrect", Toast.LENGTH_LONG).show();
                     }
-
-                    else{
-                        Toast.makeText(context,"Username or password is incorrect",Toast.LENGTH_LONG).show();
-                    }
-                    Log.e("account_detail",   userAccount.getUser().getEmail()+" " + jsonObject + " " + response.toString());
-                }
-                catch (Exception e){
+                    Log.e("account_detail", userAccount.getUser().getEmail() + " " + jsonObject + " " + response.toString());
+                } catch (Exception e) {
 //                   Log.e("account_detail",   userAccount.getUser().getEmail()+" " + jsonObject + " " + response.toString());
 
 
@@ -492,10 +475,9 @@ else{
 
             @Override
             public void onFailure(Call<UserAccount> call, Throwable t) {
-                Log.e("errordo",t.getMessage());
+                Log.e("errordo", t.getMessage());
             }
         });
-
 
 
     }
@@ -503,14 +485,14 @@ else{
     private void makeHttpCall(String url) {
         trustEveryone();
 
-        ApiService apiService = new ApiService(context,this,url ,hashMap,2);
+        ApiService apiService = new ApiService(context, this, url, hashMap, 2);
         apiService.execute();
     }
 
     @Override
     public void responceQue(String responce, String url, String extra_text) {
 
-        try{
+        try {
             JSONObject jsonObject = new JSONObject(responce);
 
             if (url.contains(Cons.LOGIN_URL)) {
@@ -518,15 +500,13 @@ else{
                     PrefrenceUtils.writeString(context, PrefrenceUtils.PREF_EMAIL, ed_emailsignin.getText().toString());
                     PrefrenceUtils.writeString(context, PrefrenceUtils.PREF_ID, jsonObject.getJSONObject("user").getString("id"));
                     PrefrenceUtils.writeString(context, PrefrenceUtils.PREF_DEVIC_TOKEN, jsonObject.getJSONObject("user").getString("jwtToken"));
-                    startActivity(new Intent(context, HomeActivity.class));
-                }
-                else{
-                    Log.e("RESPONSE",responce);
+                    startActivity(new Intent(context, HomeActivityNew.class));
+                } else {
+                    Log.e("RESPONSE", responce);
 
-                    Toast.makeText(context,"Username or password is incorrect"+responce,Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Username or password is incorrect" + responce, Toast.LENGTH_LONG).show();
                 }
-            }
-            else if (url.contains(Cons.SIGNUP_URL)) {
+            } else if (url.contains(Cons.SIGNUP_URL)) {
                 if (jsonObject.getString("status").equalsIgnoreCase("1")) {
                     PrefrenceUtils.writeString(context, PrefrenceUtils.PREF_EMAIL, ed_emailsignup.getText().toString());
                     PrefrenceUtils.writeString(context, PrefrenceUtils.PREF_ID, jsonObject.getJSONObject("data").getString("id"));
@@ -544,11 +524,10 @@ else{
                 }
             }
 //            finish();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
 
         }
-        Log.e("RESPONSE",responce);
+        Log.e("RESPONSE", responce);
     }
 
     @Override
@@ -569,21 +548,20 @@ else{
     };
 
 
-
     public void text__createaccoutnclick(View view) {
-        if(!isSignupFormValid()){
+        if (!isSignupFormValid()) {
 //            Toast.makeText(context,"Please select all fields",Toast.LENGTH_LONG).show();
             return;
         }
 
         hashMap.clear();
-        hashMap.put("first_name",ed_fnamesignup.getText().toString());
+        hashMap.put("first_name", ed_fnamesignup.getText().toString());
 //        hashMap.put("last_name",getgender_value);
-        hashMap.put("gender",getgender_value);
-        hashMap.put("dob",eddobsignup.getText().toString());
-        hashMap.put("mobile",ed_mobsignup.getText().toString());
-        hashMap.put("email",ed_emailsignup.getText().toString());
-        hashMap.put("password",ed_passwordsignup.getText().toString());
+        hashMap.put("gender", getgender_value);
+        hashMap.put("dob", eddobsignup.getText().toString());
+        hashMap.put("mobile", ed_mobsignup.getText().toString());
+        hashMap.put("email", ed_emailsignup.getText().toString());
+        hashMap.put("password", ed_passwordsignup.getText().toString());
 
 //        Log.e("ALL_DATA",hashMap.get("first_name")+ " "+hashMap.get("last_name")+ " "+hashMap.get("gender")+ " "+hashMap.get("dob")+ " "+hashMap.get("mobile")+ " "+hashMap.get("email")+ " "+hashMap.get("password")+ " ");
         makeHttpCall(Cons.SIGNUP_URL);
@@ -600,8 +578,7 @@ else{
             public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
                 try {
                     eddobsignup.setText(datePicker1.getDayOfMonth() + "-" + (datePicker1.getMonth() + 1) + "-" + datePicker1.getYear());
-                }
-                catch (Exception e){
+                } catch (Exception e) {
 
                 }
             }
@@ -610,41 +587,42 @@ else{
         return super.dispatchTouchEvent(ev);
     }
 
-    private boolean isFormValid(){
-        if((ed_emailsignin.getText().toString().equalsIgnoreCase(""))){
+    private boolean isFormValid() {
+        if ((ed_emailsignin.getText().toString().equalsIgnoreCase(""))) {
             ed_emailsignin.setError("Enter email");
             return false;
-        } if((ed_passwordsignin.getText().toString().equalsIgnoreCase(""))){
+        }
+        if ((ed_passwordsignin.getText().toString().equalsIgnoreCase(""))) {
             ed_passwordsignin.setError("Enter password here");
             return false;
         }
 
 
-
         return true;
     }
-    private boolean isSignupFormValid(){
-        if((ed_emailsignup.getText().toString().equalsIgnoreCase(""))){
+
+    private boolean isSignupFormValid() {
+        if ((ed_emailsignup.getText().toString().equalsIgnoreCase(""))) {
             ed_emailsignup.setError("Enter email");
             return false;
         }
-        if((getgender_value.toString().equalsIgnoreCase(""))){
-            Toast.makeText(context,"Enter Gender information",Toast.LENGTH_LONG).show();
+        if ((getgender_value.toString().equalsIgnoreCase(""))) {
+            Toast.makeText(context, "Enter Gender information", Toast.LENGTH_LONG).show();
             return false;
         }
-        if (!isValidEmail(ed_emailsignup.getText().toString())){
+        if (!isValidEmail(ed_emailsignup.getText().toString())) {
             ed_emailsignup.setError("Enter correct email");
-            Toast.makeText(context,"Enter correct email",Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Enter correct email", Toast.LENGTH_LONG).show();
 
             return false;
         }
-        if((ed_passwordsignup.getText().toString().equalsIgnoreCase(""))){
+        if ((ed_passwordsignup.getText().toString().equalsIgnoreCase(""))) {
             ed_passwordsignup.setError("Enter password here");
             return false;
         }
 
-        if (!isValidPassword(ed_passwordsignup.getText().toString())){
-            Toast.makeText(context,"Create a strong Password",Toast.LENGTH_LONG).show();
+        if (!isValidPassword(ed_passwordsignup.getText().toString())) {
+            Toast.makeText(context, "Create a strong Password", Toast.LENGTH_LONG).show();
             return false;
         }
 
@@ -653,7 +631,7 @@ else{
     }
 
 
-    public  boolean isValidPassword(final String password) {
+    public boolean isValidPassword(final String password) {
 
         Pattern pattern;
         Matcher matcher;
@@ -670,7 +648,8 @@ else{
         return matcher.matches();
 
     }
-    public  boolean isValidEmail(final String email) {
+
+    public boolean isValidEmail(final String email) {
 
         Pattern pattern;
         Matcher matcher;
@@ -685,19 +664,25 @@ else{
 
     private void trustEveryone() {
         try {
-            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier(){
+            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
                 public boolean verify(String hostname, SSLSession session) {
                     return true;
-                }});
+                }
+            });
             SSLContext context = SSLContext.getInstance("TLS");
-            context.init(null, new X509TrustManager[]{new X509TrustManager(){
+            context.init(null, new X509TrustManager[]{new X509TrustManager() {
                 public void checkClientTrusted(X509Certificate[] chain,
-                                               String authType) throws CertificateException {}
+                                               String authType) throws CertificateException {
+                }
+
                 public void checkServerTrusted(X509Certificate[] chain,
-                                               String authType) throws CertificateException {}
+                                               String authType) throws CertificateException {
+                }
+
                 public X509Certificate[] getAcceptedIssuers() {
                     return new X509Certificate[0];
-                }}}, new SecureRandom());
+                }
+            }}, new SecureRandom());
             HttpsURLConnection.setDefaultSSLSocketFactory(
                     context.getSocketFactory());
         } catch (Exception e) { // should never happen
@@ -707,15 +692,15 @@ else{
 
 
     public void troublelogin(View view) {
-        if((ed_emailsignin.getText().toString().equalsIgnoreCase(""))){
+        if ((ed_emailsignin.getText().toString().equalsIgnoreCase(""))) {
             ed_emailsignin.setError("Enter email");
-            Toast.makeText(context,"Enter email first",Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Enter email first", Toast.LENGTH_LONG).show();
 
             return;
         }
         progressBar.setVisibility(View.VISIBLE);
 
-        Api api = RetrofitClient.getClient(context,Api.BASE_URL).create(Api.class);
+        Api api = RetrofitClient.getClient(context).create(Api.class);
 
         Call<EmailResponse> call = api.getVerrifyEmailID(ed_emailsignin.getText().toString());
 
@@ -727,24 +712,22 @@ else{
                 PrefrenceUtils.writeString(context, PrefrenceUtils.PREF_EMAIL, ed_emailsignin.getText().toString());
 
                 try {
-                    EmailResponse emailResponse=response.body();
-                    if (emailResponse.getStatus().equalsIgnoreCase("1")){
-                        Toast.makeText(context,emailResponse.getEmail()+"!!",Toast.LENGTH_LONG).show();
-                       startActivityForResult(new Intent(context,Otp_Activity.class),2);
-                    }
-                    else{
-                        Toast.makeText(context,"Email not registered with us!!",Toast.LENGTH_LONG).show();
+                    EmailResponse emailResponse = response.body();
+                    if (emailResponse.getStatus().equalsIgnoreCase("1")) {
+                        Toast.makeText(context, emailResponse.getEmail() + "!!", Toast.LENGTH_LONG).show();
+                        startActivityForResult(new Intent(context, Otp_Activity.class), 2);
+                    } else {
+                        Toast.makeText(context, "Email not registered with us!!", Toast.LENGTH_LONG).show();
                     }
 //                    Log.e("account_detail",   userAccount.getUser().getEmail()+" " + jsonObject + " " + response.toString());
-                }
-                catch (Exception e){
+                } catch (Exception e) {
 
                 }
             }
 
             @Override
             public void onFailure(Call<EmailResponse> call, Throwable t) {
-                Log.e("errordo",t.getMessage());
+                Log.e("errordo", t.getMessage());
             }
         });
 
@@ -754,34 +737,32 @@ else{
 
     @Override
     public void verifyotp(String otp, String password) {
-        Api api = RetrofitClient.getClient(context,Api.BASE_URL).create(Api.class);
+        Api api = RetrofitClient.getClient(context).create(Api.class);
 
-        Call<EmailResponse> call = api.doverifyemail(PrefrenceUtils.readString(context,PrefrenceUtils.PREF_EMAIL,""),otp);
+        Call<EmailResponse> call = api.doverifyemail(PrefrenceUtils.readString(context, PrefrenceUtils.PREF_EMAIL, ""), otp);
 
         call.enqueue(new Callback<EmailResponse>() {
             @Override
             public void onResponse(Call<EmailResponse> call, Response<EmailResponse> response) {
 
                 try {
-                    EmailResponse emailResponse=response.body();
-                    if (emailResponse.getStatus().equalsIgnoreCase("1")){
-                        Toast.makeText(context,emailResponse.getEmail()+"!!",Toast.LENGTH_LONG).show();
-                      dosignin();
+                    EmailResponse emailResponse = response.body();
+                    if (emailResponse.getStatus().equalsIgnoreCase("1")) {
+                        Toast.makeText(context, emailResponse.getEmail() + "!!", Toast.LENGTH_LONG).show();
+                        dosignin();
 
-                    }
-                    else{
-                        Toast.makeText(context,"OTP not correct",Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(context, "OTP not correct", Toast.LENGTH_LONG).show();
                     }
 //                    Log.e("account_detail",   userAccount.getUser().getEmail()+" " + jsonObject + " " + response.toString());
-                }
-                catch (Exception e){
+                } catch (Exception e) {
 
                 }
             }
 
             @Override
             public void onFailure(Call<EmailResponse> call, Throwable t) {
-                Log.e("errordo",t.getMessage());
+                Log.e("errordo", t.getMessage());
             }
         });
     }
@@ -789,14 +770,13 @@ else{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==2){
-            if (resultCode==RESULT_OK){
+        if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
 
             }
-        }
-        else if (requestCode==3){
-            if (resultCode==RESULT_OK){
-dosignin();
+        } else if (requestCode == 3) {
+            if (resultCode == RESULT_OK) {
+                dosignin();
             }
         }
     }

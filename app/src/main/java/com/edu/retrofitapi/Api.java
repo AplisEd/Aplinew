@@ -1,5 +1,6 @@
 package com.edu.retrofitapi;
 
+import com.Utils.Const;
 import com.barchartpojo.BarFirstRetrofitModel;
 import com.editorsecondsub_subactivitypojo.Editorsub_subFirstDetailsRetrofitModel;
 import com.editorsecondsub_subactivitypojo.Editorsub_subSecondDetailsRetrofitModel;
@@ -7,15 +8,20 @@ import com.editorsecondsub_subactivitypojo.Editorsub_subSecondRetrofitModel;
 import com.editorsecondsubactivitypojo.SecondRetrofitModel;
 import com.editorsub_sub_subpojo.EditorSub_Sub_SubFirstRetrofitModel;
 import com.editorsub_sub_subpojo.Editorsub_sub_subFirstDetailsRetrofitModel;
+import com.edu.aplis.BuildConfig;
 import com.edu.book.BookFirstRetrofitModel;
 import com.edu.browse.BrowseFirstRetrofitModel;
+import com.edu.browse.BrowseFirstUsingParentvRetrofitModel;
+import com.edu.browse.ParentCategory_FirstRetrofitModel;
 import com.edu.discover.DiscoverRetrofitArrayModel;
 import com.edu.discover.DiscoverRetrofitModel;
 import com.edu.editortemplatetwo.EditorFirstRetrofitModel;
 import com.edu.fav.FavRetrofitModel;
 import com.edu.fav.FavUnFavResponse;
+import com.edu.notification.NotificationData;
 import com.edu.reset.EmailResponse;
 import com.edu.webservice.Cons;
+import com.google.gson.JsonObject;
 import com.piechartpojo.PieFirstRetrofitModel;
 import com.timelinepojo.TimelineFirstRetrofitModel;
 import com.viewactivitypojo.ViewActivityFirstRetrofitModel;
@@ -36,20 +42,28 @@ import retrofit2.http.Url;
 
 public interface Api {
 
-    String BASE_URL = "https://samystudios.com/api/";
+   // String BASE_URL = "https://samystudios.com/api/";
+    String BASE_URL = BuildConfig.BASE_URL;
+
     @FormUrlEncoded
     @POST("user/sign-in")
-    Call<UserAccount> getLoginResponse(@Field("email") String title, @Field("password") String body);
+    Call<UserAccount> getLoginResponse(@Field("user_name") String title, @Field("password") String body);
 
 
     @GET("user/get-all-discovers")
     Call<DiscoverRetrofitModel> getDiscoverList();
 
-    @GET("user/get-all-books?page=")
-    Call<BrowseFirstRetrofitModel> getBrowseBookList();
+    @GET
+    Call<BrowseFirstRetrofitModel> getBrowseBookList(@Url String url);
+
+    @GET
+    Call<BrowseFirstUsingParentvRetrofitModel> getRecentBrowseBookListByParentCategoryID(@Url String url);
 
     @GET
     Call<BookFirstRetrofitModel> getBookCourseDetails(@Url String url);
+
+    @GET
+    Call<ParentCategory_FirstRetrofitModel> getParentCategory(@Url String url);
 
     @GET
     Call<EditorFirstRetrofitModel> getChapterByBookId(@Url String url);
@@ -87,17 +101,31 @@ public interface Api {
 
     @FormUrlEncoded
     @POST("user/reset-password")
-    Call<EmailResponse> getResetPswd(@Field("email") String email,@Field("verification_code") String verification_code,@Field("password") String password);
+    Call<EmailResponse> getResetPswd(@Field("user_name") String email,@Field("verification_code") String verification_code,@Field("password") String password);
 
     @FormUrlEncoded
     @POST("user/verify-email")
-    Call<EmailResponse> doverifyemail(@Field("email") String email,@Field("verification_code") String verification_code);
+    Call<EmailResponse> doverifyemail(@Field("user_name") String email,@Field("verification_code") String verification_code);
 
     @POST
     Call<FavUnFavResponse> dofavUnfavbook(@Url String url);
 
-
-
     @GET
     Call<Editorsub_subSecondDetailsRetrofitModel> getGET_SECONDSUB_SUBCHAPTERYBDETAILCHAPTERID(@Url String url);
+
+ @FormUrlEncoded
+ @POST("user/get-firebase-token")
+ Call<JsonObject> sendFcmTokenToServer(@Field(Const.USER_ID) String USER_ID,@Field(Const.FIREBASE_TOKEN) String FIREBASE_TOKEN);
+
+ /*@FormUrlEncoded
+ @POST("user/get-sub-topics")
+ Call<SecondRetrofitModel> getSUBCHAPTERBYCHAPTERID(@Field(Const.TOPIC_ID) String TOPIC_ID);*/
+
+ @FormUrlEncoded
+ @POST("user/get-sub-sub-topics")
+ Call<SecondRetrofitModel> getSubSubTopic(@Field(Const.SUBTOPIC_ID) String TOPIC_ID);
+
+ @FormUrlEncoded
+ @POST("user/get-notification-list")
+ Call<JsonObject> getNotificationList(@Field(Const.USER_TYPE) String USER_TYPE);
 }

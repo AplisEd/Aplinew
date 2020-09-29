@@ -280,7 +280,7 @@ public class Piechartsub_subActivtiy extends AppCompatActivity implements Respon
 
     private void getDataFromServer(String pie_url) {
         piechart_id = getIntent().getStringExtra("sub_sub_id_s");
-        Api api = RetrofitClient.getClient(context, Api.BASE_URL).create(Api.class);
+        Api api = RetrofitClient.getClient(context).create(Api.class);
 
         Call<PieFirstRetrofitModel> call = api.getGETPieChart(pie_url + piechart_id);
 //        Log.e("discovertry",call.u);

@@ -34,6 +34,8 @@ public class DemoApplication extends Application {
     protected String userAgent;
     private File downloadDirectory;
     private Cache downloadCache;
+    private static GoogleAnalytics sAnalytics;
+    private static Tracker sTracker;
 
     private HttpProxyCacheServer proxy;
 
@@ -77,6 +79,15 @@ public class DemoApplication extends Application {
      */
     public HttpDataSource.Factory buildHttpDataSourceFactory() {
         return new DefaultHttpDataSourceFactory(userAgent);
+    }
+
+
+    synchronized public Tracker getDefaultTracker() {
+        // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
+        if (sTracker == null) {
+            sTracker = sAnalytics.newTracker(R.xml.app_tracker);
+        }
+        return sTracker;
     }
 
     private synchronized Cache getDownloadCache() {

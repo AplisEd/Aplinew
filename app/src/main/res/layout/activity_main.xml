@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,13 +17,11 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_above="@+id/layoutbtm"
->
+    android:layout_above="@+id/layoutbtm">
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/main_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewpager"
@@ -58,8 +57,7 @@
              android:paddingBottom="@dimen/dp10"
              android:paddingTop="@dimen/dp10"
              android:textColor="@color/textColblack"
-             android:fontFamily="@font/playfairdisplayregular"
-             ></TextView>
+             android:fontFamily="@font/playfairdisplayregular"/>
 
 
          <com.google.android.material.textfield.TextInputLayout
@@ -67,7 +65,7 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:layout_marginBottom="12dp"
-             android:hint="Enter email">
+             android:hint="Enter username">
 
              <com.google.android.material.textfield.TextInputEditText
                  android:layout_width="match_parent"
@@ -86,7 +84,7 @@
              android:paddingTop="@dimen/dp20"
              android:textColor="@color/textColblack"
              android:fontFamily="@font/playfairdisplayregular"
-             ></TextView>
+             />
 
 
          <com.google.android.material.textfield.TextInputLayout
@@ -109,12 +107,12 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:text="What's your date of birth?"
-             android:textSize="@dimen/dp20"
+             android:textSize="@dimen/sp20"
              android:paddingBottom="@dimen/dp10"
              android:paddingTop="@dimen/dp20"
              android:textColor="@color/textColblack"
              android:fontFamily="@font/playfairdisplayregular"
-             ></TextView>
+             />
 
 
          <com.google.android.material.textfield.TextInputLayout
@@ -145,7 +143,7 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:text="Continue"
-             android:textSize="@dimen/dp20"
+             android:textSize="@dimen/sp20"
              android:layout_marginTop="@dimen/dp10"
              android:onClick="text__continueclick"
              android:id="@+id/text_continue"
@@ -153,7 +151,7 @@
              android:layout_gravity="center"
              android:textColor="@color/textColblack"
              android:fontFamily="@font/playfairdisplayregular"
-             ></TextView>
+             />
 
      </LinearLayout>
 
@@ -169,12 +167,12 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:text="What's your Gender?"
-             android:textSize="@dimen/dp20"
+             android:textSize="@dimen/sp20"
              android:paddingBottom="@dimen/dp10"
              android:paddingTop="@dimen/dp10"
              android:textColor="@color/textColblack"
              android:fontFamily="@font/playfairdisplayregular"
-             ></TextView>
+             />
 
 
          <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
@@ -182,18 +180,18 @@
              android:layout_height="wrap_content"
              android:id="@+id/gender_list"
              android:hint="Gender"
-             ></com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner>
+             />
 
          <TextView
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:text="What's your Full Name?"
-             android:textSize="@dimen/dp20"
+             android:textSize="@dimen/sp20"
              android:paddingBottom="@dimen/dp10"
              android:paddingTop="@dimen/dp20"
              android:textColor="@color/textColblack"
              android:fontFamily="@font/playfairdisplayregular"
-             ></TextView>
+             />
 
 
          <com.google.android.material.textfield.TextInputLayout
@@ -217,12 +215,12 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:text="What's your Mobile number?"
-             android:textSize="@dimen/dp20"
+             android:textSize="@dimen/sp20"
              android:paddingBottom="@dimen/dp10"
              android:paddingTop="@dimen/dp20"
              android:textColor="@color/textColblack"
              android:fontFamily="@font/playfairdisplayregular"
-             ></TextView>
+            />
 
 
          <com.google.android.material.textfield.TextInputLayout
@@ -248,12 +246,11 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:text="This appears on your Aplis profile."
-             android:textSize="@dimen/dp10"
+             android:textSize="@dimen/sp10"
              android:paddingBottom="@dimen/dp10"
              android:paddingTop="@dimen/dp10"
              android:textColor="@color/textColblack"
-             android:fontFamily="@font/playfairdisplaybold"
-             ></TextView>
+             android:fontFamily="@font/playfairdisplaybold"/>
 
 
 
@@ -261,15 +258,14 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:text="Create Account"
-             android:textSize="@dimen/dp20"
+             android:textSize="@dimen/sp20"
              android:layout_marginTop="@dimen/dp10"
              android:onClick="text__createaccoutnclick"
              android:id="@+id/text_createaccount"
              android:gravity="center"
              android:layout_gravity="center"
              android:textColor="@color/textColblack"
-             android:fontFamily="@font/playfairdisplayregular"
-             ></Button>
+             android:fontFamily="@font/playfairdisplayregular"/>
          <TextView
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
@@ -279,8 +275,7 @@
              android:gravity="center"
              android:layout_gravity="center"
              android:textColor="@color/textCol"
-             android:fontFamily="@font/playfairdisplayregular"
-             ></TextView>
+             android:fontFamily="@font/playfairdisplayregular"/>
 
      </LinearLayout>
 
@@ -296,13 +291,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Email"
-            android:textSize="@dimen/dp20"
+            android:text="Username"
+            android:textSize="@dimen/sp20"
             android:paddingBottom="@dimen/dp10"
             android:paddingTop="@dimen/dp10"
             android:textColor="@color/textColblack"
-            android:fontFamily="@font/playfairdisplayregular"
-            ></TextView>
+            android:fontFamily="@font/playfairdisplayregular"/>
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -329,8 +323,7 @@
             android:paddingBottom="@dimen/dp10"
             android:paddingTop="@dimen/dp20"
             android:textColor="@color/textColblack"
-            android:fontFamily="@font/playfairdisplayregular"
-            ></TextView>
+            android:fontFamily="@font/playfairdisplayregular"/>
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -354,27 +347,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sign In"
-            android:textSize="@dimen/dp20"
+            android:textSize="@dimen/sp20"
             android:layout_marginTop="@dimen/dp10"
             android:onClick="textsigninaccount"
             android:id="@+id/text_signin"
             android:gravity="center"
             android:layout_gravity="center"
             android:textColor="@color/textColblack"
-            android:fontFamily="@font/playfairdisplayregular"
-            ></Button>
+            android:fontFamily="@font/playfairdisplayregular"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Trouble logging in?"
-            android:textSize="@dimen/dp12"
+            android:textSize="@dimen/sp12"
             android:layout_marginTop="@dimen/dp10"
             android:onClick="troublelogin"
             android:gravity="center"
             android:layout_gravity="center"
             android:textColor="@color/ColorTextGrey"
-            android:fontFamily="@font/playfairdisplayregular"
-            ></TextView>
+            android:fontFamily="@font/playfairdisplayregular"/>
 
     </LinearLayout>
 
@@ -394,33 +385,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Welcome to Aplis"
-        android:textSize="@dimen/dp19"
+        android:textSize="@dimen/sp19"
         android:id="@+id/test"
         android:textColor="@color/textColblack"
-        android:fontFamily="@font/playfairdisplayregular"
-></TextView>
+        android:fontFamily="@font/playfairdisplayregular"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Welcome to Aplis"
-        android:textSize="@dimen/dp12"
+        android:textSize="@dimen/sp12"
         android:layout_marginTop="@dimen/dp10"
         android:textColor="@color/ColorTextGrey"
-        android:fontFamily="@font/playfairdisplayregular"
-></TextView>
+        android:fontFamily="@font/playfairdisplayregular"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sign Up"
-        android:textSize="@dimen/dp18"
+        android:textSize="@dimen/sp18"
         android:layout_marginTop="@dimen/dp20"
+        android:visibility="gone"
         android:onClick="text_signupfromdefaultclick"
         android:id="@+id/text_signupfromdefault"
-
         android:textColor="@color/textColblack"
-        android:fontFamily="@font/playfairdisplayregular"
-        ></TextView>
+        android:fontFamily="@font/playfairdisplayregular"/>
 
 
 
@@ -434,20 +422,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Already have an Account"
-        android:textSize="@dimen/dp12"
+        android:textSize="@dimen/sp12"
         android:onClick="text_signinclick"
         android:id="@+id/text_signinfromdefault"
         android:textColor="@color/ColorTextGrey"
-        android:fontFamily="@font/playfairdisplayregular"
-        ></TextView>
+        android:fontFamily="@font/playfairdisplayregular"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sign In"
-        android:textSize="@dimen/dp12"
+        android:textSize="@dimen/sp12"
         android:textColor="@color/textColblack"
-        android:fontFamily="@font/playfairdisplayregular"
-        ></TextView>
+        android:fontFamily="@font/playfairdisplayregular"/>
         </LinearLayout>
 
 

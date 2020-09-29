@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.Utils.Helper;
 import com.edu.aplis.R;
 import com.edu.home.HomeActivity;
 import com.edu.preference.PrefrenceUtils;
@@ -51,22 +52,23 @@ import retrofit2.Response;
 
 import static android.content.Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
 
-public class DiscoverActivity extends Fragment implements ResponceQueues,ClickAdapter {
+public class DiscoverFragment extends Fragment implements ResponceQueues, ClickAdapter {
     RecyclerView recyclerView;
-    HashMap<String,String> hashMap=new HashMap<>();
+    HashMap<String, String> hashMap = new HashMap<>();
     Context context;
-    private  ArrayList<DiscoverModel> discoverModelArrayList;
     DiscoverAdapter discoverAdapter;
     SwipeRefreshLayout swiperefresh;
-     String content_url= "";
+    String content_url = "";
     ShimmerFrameLayout shimmerFrameLayout;
     ClickAdapter clickAdapter;
+    private ArrayList<DiscoverModel> discoverModelArrayList;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_discover, container, false);
 
         context = getActivity();
-        clickAdapter=this;
+        clickAdapter = this;
         recyclerView = rootView.findViewById(R.id.recyclerview);
         swiperefresh = rootView.findViewById(R.id.swiperefresh);
         shimmerFrameLayout = rootView.findViewById(R.id.shimmerFrameLayout);
@@ -93,41 +95,48 @@ public class DiscoverActivity extends Fragment implements ResponceQueues,ClickAd
     }
 
     private void getDataFromServer() {
+        if (Helper.isNetworkConnected(context)) {
 
-        Api api = RetrofitClient.getClient(context,Api.BASE_URL).create(Api.class);
+            Api api = RetrofitClient.getClient(context).create(Api.class);
 
-        Call<DiscoverRetrofitModel> call = api.getDiscoverList();
+            Call<DiscoverRetrofitModel> call = api.getDiscoverList();
 //        Log.e("discover",call.toString());
-        call.enqueue(new Callback<DiscoverRetrofitModel>() {
-            @Override
-            public void onResponse(Call<DiscoverRetrofitModel> call, Response<DiscoverRetrofitModel> response) {
+            call.enqueue(new Callback<DiscoverRetrofitModel>() {
+                @Override
+                public void onResponse(Call<DiscoverRetrofitModel> call, Response<DiscoverRetrofitModel> response) {
 
-                try {
+                    try {
 //                    shimmerFrameLayout.stopShimmerAnimation();
 //                    shimmerFrameLayout.setVisibility(View.GONE);
 //                    recyclerView.setVisibility(View.VISIBLE);
-                    DiscoverRetrofitModel discoverRetrofitArrayModel = response.body();
-                    JSONArray jsonArray = new JSONArray(new Gson().toJson(response.body().getData()));
-                    Log.e("discovertry", jsonArray + "");
-                } catch (Exception e) {
-                    Log.e("discovererror", e + "");
+                        DiscoverRetrofitModel discoverRetrofitArrayModel = response.body();
+                        JSONArray jsonArray = new JSONArray(new Gson().toJson(response.body().getData()));
+                        Log.e("discovertry", jsonArray + "");
+                    } catch (Exception e) {
+                        Log.e("discovererror", e + "");
 
+                    }
+                    if (response.body().getStatus().equalsIgnoreCase("1")) {
+                        setDiscoverList(response.body());
+                    }
                 }
-                if (response.body().getStatus().equalsIgnoreCase("1")) {
-                    setDiscoverList(response.body());
+
+                @Override
+                public void onFailure(Call<DiscoverRetrofitModel> call, Throwable t) {
+                    Log.e("errordo", t.getMessage());
                 }
-            }
-            @Override
-            public void onFailure(Call<DiscoverRetrofitModel>call, Throwable t) {
-                Log.e("errordo",t.getMessage());
-            }
-        });
+            });
 //
 //        trustEveryone();
 //        hashMap.clear();
 //
 //        ApiService apiService = new ApiService(context,this, Cons.GET_ALL_DISCOVER_URL,hashMap,1);
 //        apiService.execute();
+
+        } else {
+            Toast.makeText(context, R.string.Retry_with_Internet_connection, Toast.LENGTH_LONG).show();
+        }
+
     }
 
     @Override
@@ -137,15 +146,15 @@ public class DiscoverActivity extends Fragment implements ResponceQueues,ClickAd
         shimmerFrameLayout.stopShimmerAnimation();
         shimmerFrameLayout.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
-        Log.e("Response===",url+responce);
+        Log.e("Response===", url + responce);
 
         try {
             JSONObject jsonObject = new JSONObject(responce);
             JSONArray jsonArray = jsonObject.getJSONArray("data");
-            Log.e("Response===",jsonArray.length()+"");
+            Log.e("Response===", jsonArray.length() + "");
 
-            for (int i=jsonArray.length()-1;i>=0;i--){
-                JSONObject jsonObjectseries=jsonArray.getJSONObject(i);
+            for (int i = jsonArray.length() - 1; i >= 0; i--) {
+                JSONObject jsonObjectseries = jsonArray.getJSONObject(i);
                 DiscoverModel discoverModel = new DiscoverModel();
                 String id = jsonObjectseries.getString("id");
                 String title = jsonObjectseries.getString("title");
@@ -157,11 +166,11 @@ public class DiscoverActivity extends Fragment implements ResponceQueues,ClickAd
                 String long_description = jsonObjectseries.getString("long_description");
                 String image_Ar = jsonObjectseries.getString("ar_url");
 
-                if (title==null||title.equalsIgnoreCase("null")){
+                if (title == null || title.equalsIgnoreCase("null")) {
                     title = "";
                 }
 
-                if (title_description==null||title_description.equalsIgnoreCase("null")){
+                if (title_description == null || title_description.equalsIgnoreCase("null")) {
                     title_description = "";
                 }
                 discoverModel.setId(id);
@@ -170,10 +179,9 @@ public class DiscoverActivity extends Fragment implements ResponceQueues,ClickAd
                 discoverModel.setTitle_description(title_description);
                 discoverModel.setMime_type(mime_type);
                 discoverModel.setHeader_url(header_url);
-                if (card_url==null||card_url.equalsIgnoreCase("null")) {
+                if (card_url == null || card_url.equalsIgnoreCase("null")) {
                     discoverModel.setCard_url(header_url);
-                }
-                else{
+                } else {
                     discoverModel.setCard_url(card_url);
 
                 }
@@ -181,38 +189,35 @@ public class DiscoverActivity extends Fragment implements ResponceQueues,ClickAd
                 discoverModel.setImage_Ar(image_Ar);
                 discoverModelArrayList.add(discoverModel);
 
-                if (title.equalsIgnoreCase("")){
+                if (title.equalsIgnoreCase("")) {
                     discoverModel.setTitlecard_visible(8);
-                }
-                else{
+                } else {
                     discoverModel.setTitlecard_visible(0);
 
                 }
-                if (title_description.equalsIgnoreCase("")){
+                if (title_description.equalsIgnoreCase("")) {
                     discoverModel.setTitldesecard_visible(8);
 
-                }
-                else{
+                } else {
                     discoverModel.setTitldesecard_visible(0);
 
                 }
-                if (title.isEmpty()&&title_description.isEmpty()){
+                if (title.isEmpty() && title_description.isEmpty()) {
 
-                    Log.e("Response value===",title+"\t header_url"+title_description);
+                    Log.e("Response value===", title + "\t header_url" + title_description);
 
                     discoverModel.setVisible(8);
-                }
-                else{
+                } else {
                     discoverModel.setVisible(0);
 
                 }
             }
 
-            discoverAdapter = new DiscoverAdapter(context,discoverModelArrayList,this);
+            discoverAdapter = new DiscoverAdapter(context, discoverModelArrayList, this);
             recyclerView.setAdapter(discoverAdapter);
 
         } catch (JSONException e) {
-            Log.e("JSONEXCEPTION",e+"");
+            Log.e("JSONEXCEPTION", e + "");
             e.printStackTrace();
         }
     }
@@ -220,49 +225,57 @@ public class DiscoverActivity extends Fragment implements ResponceQueues,ClickAd
     @Override
     public void clickoncard(ImageView view, int position, String mimetype, String content, String title, String long_desc, List<Books> list, String image_Ar, String discover_id) {
 
-        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),view,"imageMain");
+        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), view, "imageMain");
 //        startActivity(in,activityOptionsCompat.toBundle());
 //        Bundle bundle = new Bundle();
 //        bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) list);
         startActivity(new Intent(context, DiscoverDetailActivity.class)
 
-                .putExtra("title",title)
-                .putExtra("long_desc",long_desc)
-                .putExtra("discover_id",discover_id)
+                        .putExtra("title", title)
+                        .putExtra("long_desc", long_desc)
+                        .putExtra("discover_id", discover_id)
 //                .putExtras(bundle)
-                .putExtra("mimetype",mimetype).putExtra("content",content)
-        .putExtra("image_Ar",image_Ar).putExtra("content_url",content_url)
-        ,activityOptionsCompat.toBundle());
+                        .putExtra("mimetype", mimetype)
+                        .putExtra("content", content)
+                        .putExtra("image_Ar", image_Ar)
+                        .putExtra("content_url", content_url)
+                , activityOptionsCompat.toBundle());
 //        getActivity().finishAffinity();
 
         getActivity().overridePendingTransition(R.anim.fadein, R.anim.fadeout);
 
-        Log.e("POS","AR"+image_Ar+"");
+        Log.e("POS", "AR" + image_Ar + "");
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==2){
+        if (requestCode == 2) {
             content_url = data.getStringExtra("content_url");
         }
     }
 
     private void trustEveryone() {
         try {
-            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier(){
+            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
                 public boolean verify(String hostname, SSLSession session) {
                     return true;
-                }});
+                }
+            });
             SSLContext context = SSLContext.getInstance("TLS");
-            context.init(null, new X509TrustManager[]{new X509TrustManager(){
+            context.init(null, new X509TrustManager[]{new X509TrustManager() {
                 public void checkClientTrusted(X509Certificate[] chain,
-                                               String authType) throws CertificateException {}
+                                               String authType) throws CertificateException {
+                }
+
                 public void checkServerTrusted(X509Certificate[] chain,
-                                               String authType) throws CertificateException {}
+                                               String authType) throws CertificateException {
+                }
+
                 public X509Certificate[] getAcceptedIssuers() {
                     return new X509Certificate[0];
-                }}}, new SecureRandom());
+                }
+            }}, new SecureRandom());
             HttpsURLConnection.setDefaultSSLSocketFactory(
                     context.getSocketFactory());
         } catch (Exception e) { // should never happen
@@ -270,7 +283,7 @@ public class DiscoverActivity extends Fragment implements ResponceQueues,ClickAd
         }
     }
 
-    public void setAnimation(){
+    public void setAnimation() {
 
 //        a.reset();
 //        startActivity(new Intent(context, Loginclass.class));

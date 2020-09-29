@@ -24,12 +24,10 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
     private ArrayList<DiscoverModel> discoverArrayList;
     ClickAdapter clickAdapter;
 
-
     public DiscoverAdapter(Context context, ArrayList<DiscoverModel> discoverAdapterArrayList,ClickAdapter clickAdapter) {
         this.mcontext = context;
         this.discoverArrayList = discoverAdapterArrayList;
         this.clickAdapter = clickAdapter;
-
     }
 
     @NonNull
@@ -38,7 +36,6 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_layout, null, false);
         view.setLayoutParams(new RecyclerView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
         return new ViewHolder(view);
     }
 
@@ -68,8 +65,7 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
             }
         });
 
-        Glide
-                .with(mcontext)
+        Glide.with(mcontext)
                 .load(listModel.getCard_url())
                 .thumbnail(0.05f)
                 .centerCrop()

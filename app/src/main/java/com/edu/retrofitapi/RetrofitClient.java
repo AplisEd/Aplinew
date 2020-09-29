@@ -13,6 +13,7 @@ import java.security.KeyStore;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManagerFactory;
@@ -21,6 +22,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -28,20 +30,22 @@ public class RetrofitClient {
 
     private static Retrofit retrofit = null;
     private static Context mcontext;
-    public static Retrofit getClient(Context context,String url){
+    private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder().connectTimeout(60, TimeUnit.MINUTES)
+            .readTimeout(60,TimeUnit.MINUTES);
 
+    public static Retrofit getClient(Context context){
         if(retrofit == null){
 
             mcontext=context;
             retrofit = new Retrofit.Builder()
-                    .baseUrl(url)
+                    .baseUrl(Api.BASE_URL)
                     .client(trustcustom())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
         return retrofit;
     }
-
+//.client(trustcustom())
     private static OkHttpClient trustcustom(){
         OkHttpClient okHttpClient=null;
         try {
@@ -73,7 +77,7 @@ public class RetrofitClient {
             SSLContext context = SSLContext.getInstance("TLS");
             context.init(null, tmf.getTrustManagers(), null);
 
-            Log.e("CATCHerror","try");
+            Log.e("HeaderValue",PrefrenceUtils.readString(mcontext, PrefrenceUtils.PREF_DEVIC_TOKEN,""));
 // Tell the okhttp to use a SocketFactory from our SSLContext
             okHttpClient = new OkHttpClient.Builder().sslSocketFactory(context.getSocketFactory()
             )
@@ -91,7 +95,10 @@ public class RetrofitClient {
         catch (Exception e){
             Log.e("CATCHerror",e+"");
         }
-        return okHttpClient;
+
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        return httpClient.addInterceptor(interceptor).connectTimeout(60, TimeUnit.MINUTES).readTimeout(60, TimeUnit.MINUTES) .writeTimeout(1, TimeUnit.MINUTES).build();
     }
 
 

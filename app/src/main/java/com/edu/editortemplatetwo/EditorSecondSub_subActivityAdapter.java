@@ -7,6 +7,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,6 +54,7 @@ public class EditorSecondSub_subActivityAdapter extends RecyclerView.Adapter<Edi
     public void onBindViewHolder(final SampleViewHolders holder, final int position)
     {
 
+/*
         Glide.with(context).load(itemList.get(position).getBtn_bg_image()).asBitmap().into(new SimpleTarget<Bitmap>((R.dimen.dp140), (R.dimen.dp140)) {
 
 
@@ -93,7 +95,55 @@ public class EditorSecondSub_subActivityAdapter extends RecyclerView.Adapter<Edi
             }
 
         });
+*/
+        String imageUrl=itemList.get(position).getBtn_bg_image();
+        if (imageUrl!=null && !TextUtils.isEmpty(imageUrl)) {
 
+            Glide.with(context).load(itemList.get(position).getBtn_bg_image()).asBitmap().into(new SimpleTarget<Bitmap>((R.dimen.dp140), (R.dimen.dp140)) {
+                @Override
+                public void onLoadStarted(Drawable placeholder) {
+                    super.onLoadStarted(placeholder);
+                    //  Drawable color = new ColorDrawable(Color.parseColor(itemList.get(position).getBtn_image()));
+
+//                LayerDrawable ld = new LayerDrawable(new Drawable[]{color, errorDrawable});
+//                imageView.setImageDrawable(ld);
+                    Log.e("TAGEDITORbg_image", "failed" + itemList.get(position).getColor_code());
+
+                    // holder.circle_image.setImageDrawable(color);
+                    holder.circle_image.setImageDrawable(context.getResources().getDrawable(R.drawable.placeholder));
+                }
+
+
+                @Override
+                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                    Drawable drawable = new BitmapDrawable(context.getResources(), resource);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        holder.circle_image.setImageBitmap(resource);
+                    }
+                }
+
+                @Override
+                public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                    super.onLoadFailed(e, errorDrawable);
+                    //  Drawable color = new ColorDrawable(Color.parseColor(itemList.get(position).getBtn_image()));
+
+//                LayerDrawable ld = new LayerDrawable(new Drawable[]{color, errorDrawable});
+//                imageView.setImageDrawable(ld);
+                    Log.e("TAGEDITORbg_image", "failed" + itemList.get(position).getColor_code());
+
+                    // holder.circle_image.setImageDrawable(color);
+                    holder.circle_image.setImageDrawable(context.getResources().getDrawable(R.drawable.placeholder));
+
+                }
+
+            });
+        }
+        else
+        {
+            // Drawable color = new ColorDrawable(Color.parseColor(itemList.get(position).getBtn_image()));
+            // holder.circle_image.setImageDrawable(color);
+            holder.circle_image.setImageDrawable(context.getResources().getDrawable(R.drawable.placeholder));
+        }
         holder.circle_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

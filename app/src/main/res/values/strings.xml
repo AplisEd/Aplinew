@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Aplis</string>
+    <!--<string name="app_name">Aplis</string>-->
     <string name="signuptext">Don\'t have an Account <a href="Signup">SIGNUP</a></string>
     <string name="book_detail">Bok Detail</string>
     <string name="red">red</string>
@@ -17,7 +17,12 @@
     </array>
 
 
-    <string name="body">Android CardView UI component shows information inside cards. This component is generally used to show contact information. This component is available in another support library so we have to add its dependency too.Android CardView widget allows us to control the background color, shadow, corner radius, elevation etc. For using the custom attributes in XML, we need to add the following namespace declaration to the parent layout. Following is the namespace declaration with some attributes from our project.</string>
+    <string name="body">Android CardView UI component shows information inside cards.
+        This component is generally used to show contact information.
+        This component is available in another support library so we have to add its dependency too.
+        Android CardView widget allows us to control the background color, shadow, corner radius, elevation etc.
+        For using the custom attributes in XML, we need to add the following namespace declaration to the parent layout.
+        Following is the namespace declaration with some attributes from our project.</string>
     <string name="delete">Delete</string>
 
     <string name="start_new">New</string>
@@ -29,6 +34,15 @@
     <string name="sml">Small</string>
     <string name="med">Medium</string>
     <string name="lrg">Large</string>
+    <string name="channel_description">This Notification Channel manages all the basic notifications of the Aplis App</string>
+    <string name="channel_name">Aplis App Notification</string>
+    <string name="press_again_to_exit">Press BACK again to exit.</string>
+    <string name="logout_confirmation_message">Do you really want to logout?</string>
+    <string name="logout_title">Logout</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="Retry_with_Internet_connection">Retry with Internet connection</string>
+
 
 
 </resources>

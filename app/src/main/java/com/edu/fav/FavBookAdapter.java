@@ -82,11 +82,6 @@ public class FavBookAdapter extends RecyclerView.Adapter<FavBookAdapter.ViewHold
         // notify item added by position
         notifyItemInserted(position);
     }
-
-
-
-
-
     @Override
     public int getItemCount() {
         return booksArrayList.size();

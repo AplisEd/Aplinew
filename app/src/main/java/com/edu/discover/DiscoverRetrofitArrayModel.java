@@ -17,6 +17,10 @@ public class DiscoverRetrofitArrayModel {
     private String header_url;
     @SerializedName("card_url")
     private String card_url;
+    @SerializedName("long_description")
+    private String long_description;
+    @SerializedName("ar_url")
+    private String ar_url;
 
     public String getAr_url() {
         return ar_url;
@@ -26,9 +30,6 @@ public class DiscoverRetrofitArrayModel {
         this.ar_url = ar_url;
     }
 
-    @SerializedName("ar_url")
-    private String ar_url;
-
     public String getLong_description() {
         return long_description;
     }
@@ -36,16 +37,6 @@ public class DiscoverRetrofitArrayModel {
     public void setLong_description(String long_description) {
         this.long_description = long_description;
     }
-
-
-
-    @SerializedName("long_description")
-    private String long_description;
-
-
-
-
-
 
     public String getId() {
         return id;
